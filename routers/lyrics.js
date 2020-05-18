@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const geniusApi = require('../lib/genius_lyrics/geniusApi');
-const token = 'OTh1EYlsNdO1kELVwcevqLPtsgq3FrxfShIXg_w0EaEd8CHZrJWbWvN8Be773Cyr';
+const token = process.env.GENIUS_TOKEN;
 const genius = new geniusApi(token);
 
 
