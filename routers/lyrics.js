@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = new express.Router();
 
 const geniusApi = require('../lib/genius_lyrics/geniusApi');
 const token = process.env.GENIUS_TOKEN;

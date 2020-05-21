@@ -10,11 +10,10 @@ const getSpotify = ((req, res, next) => {
         clientId,
         clientSecret,
         redirectUri
-    })
+    });
 
-    if (req.header('Authorization')){
-        const access_token = req.header('Authorization').replace('Bearer ', '')
-        spotifyApi.setAccessToken(access_token);
+    if (req.tokens) {
+        spotifyApi.setAccessToken(req.tokens.spotify);
     }
     
     req.spotifyApi = spotifyApi;
