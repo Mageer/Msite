@@ -3,9 +3,9 @@ const router = new express.Router();
 const Duration = require('../lib/duration');
 const SpotifyWebApi = require('spotify-web-api-node');
 const User = require('../models/user');
-const getSpotifyApi = require('../middlewear/get_spotify_api');
-const auth = require('../middlewear/auth');
-const getUser = require('../middlewear/get_user');
+const getSpotifyApi = require('../middleware/get_spotify_api');
+const auth = require('../middleware/auth');
+const getUser = require('../middleware/get_user');
 
 // Very important that auth comes before getSpotifyApi.
 router.use(auth);
