@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cryptoRandomString = require('crypto-random-string'); 
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -16,6 +17,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minLength: 6,
+    },
+    refresh_token: {
+        type: String,
     },
     spotify_refresh_token: {
         type: String,
@@ -60,9 +64,17 @@ userSchema.methods.toJSON = function () {
 }
 
 
-userSchema.methods.generateJWT = function (tokens) {
+userSchema.methods.generateRefreshToken = async function () {
+    const user = this; 
+    const refresh_token = cryptoRandomString({length: 32, type: 'base64'});
+    user.refresh_token = refresh_token;
+    await user.save();
+}
+
+
+userSchema.methods.generateAccessToken = function (tokens) {
     const user = this;
-    
+
     const token = jwt.sign({
         username: user.username,
         tokens,

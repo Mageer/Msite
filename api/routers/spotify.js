@@ -46,25 +46,6 @@ router.get('/callback', getUser, async (req, res) => {
 });
 
 
-router.get('/refresh-access-token', getUser, async (req, res) => {
-    const user = req.user;
-    const refresh_token = user.spotify_refresh_token;
-
-    const spotifyApi = req.spotifyApi;
-    spotifyApi.setRefreshToken(refresh_token);
-
-    try {
-        const authData = await spotifyApi.refreshAccessToken();
-        const access_token = authData.body.access_token;
-        const jwt_token = await user.generateJWT({ spotify: access_token});
-        res.send({ token: jwt_token });
-
-    } catch(err) {
-        res.status(400).send(err);
-    }
-});
-
-
 router.get('/me', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     try {

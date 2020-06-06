@@ -45,14 +45,13 @@ geniusApi.prototype = {
     },
 
     /**
-     * Attempts to get lyrics.
+     * Attempts to extract lyrics from body.
      * 
-     * @param {String} song
+     * @param {String} body from song URL
      * @return {String}     nothing if no lyrics found
      * @private
      */
-    attemptToGetLyrics: async function(song){
-        const body = await this.getSourceCode(song);
+    extractLyrics: (body) => {
         const body_parsed = cheerio.load(body);
         const lyrics = body_parsed('.lyrics');
         const lyrics_text = cheerio.text(lyrics);
@@ -74,26 +73,28 @@ geniusApi.prototype = {
      */
     getLyrics: async function(song, maxTries=3) {
         for (let i=0; i<maxTries; i++){
-            const lyrics = await this.attemptToGetLyrics(song);
+
+            const body = await this.getSourceCode(song);
+            const lyrics = await this.extractLyrics(body);
+
             if (lyrics){
-                return lyrics;
-            }; 
+                const name = this.getTitle(body)
+                return {name, lyrics};
+            };
+
+            console.log('Lyrics not found'); 
         };
     },
 
     /**
      * Get's song title.
      * 
-     * All returned html source codes are easily
-     * scraped for title, so no reason for attempts.
-     * The title format is also the same in all versions.
      * 
-     * @param {String} song
+     * @param {String} body from song URL
      * @return {String} 
      * @public
      */
-    getTitle: async function(song) {
-        const body = await this.getSourceCode(song);
+    getTitle: (body) => {
         const titleWithStamp = cheerio.text(cheerio.load(body)('title'));
         const re = / Lyrics \| Genius Lyrics/;
         const title = titleWithStamp.replace(re, "");

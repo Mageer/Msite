@@ -1,0 +1,21 @@
+<body>
+	<h1>Welcome to lyrics finder!</h1>
+  	<input type="text" id="search" name="search">
+  		<button type="button" onclick="getLyrics()">Search</button>
+	</input>
+	  
+  	<pre><p id="lyrics"></p></pre>
+
+  	<script>
+		function getLyrics(){
+			document.getElementById("lyrics").innerHTML = "Fetching lyrics...";
+			const search = document.getElementById("search").value;
+
+			fetch('/lyrics?search=' + encodeURI(search))
+				.then((response) => response.text())
+				.then((text) => document.getElementById("lyrics").innerHTML = text)
+				.catch((err) => console.log(err));
+		}
+	</script>
+
+</body>

@@ -4,13 +4,19 @@ const spotify = require('./routers/spotify');
 const user = require('./routers/user');
 const mongoose = require('./db/mongoose');
 
-const port = process.env.port || 3000
+const path = require('path');
+
+const port = process.env.port || 4000
 const app = express();
 app.use(express.json());
 
 app.use('/lyrics', lyrics);
 app.use('/spotify', spotify);
 app.use('/user', user);
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+})
 
 app.get('*', (req, res) => {
     res.status(404).send('Error 404!');

@@ -9,11 +9,13 @@ const genius = new geniusApi(token);
 /* Get the lyrics */
 router.get('/', async (req, res) => {
     try {
-        const lyrics = await genius.getLyrics(req.query.search);
+        const lyrics = await genius.getLyrics(req.query.search, maxTries=5);
+
         if (lyrics == undefined){
             console.log('Lyrics not found');
             return res.status(400).send('Lyrics not found');
         };
+
         res.send(lyrics);
 
     } catch (err) {

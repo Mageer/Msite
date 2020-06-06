@@ -1,10 +1,10 @@
 const SpotifyWebApi = require('spotify-web-api-node'); 
 
 const getSpotify = ((req, res, next) => {
-    const scopes = ['user-read-private', 'user-read-email'];
+    const scopes = ["streaming", "user-read-email", "user-read-private"];
     const clientId = process.env.SPOTIFY_CLIENT_ID;
     const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    const redirectUri = 'http://localhost:3000/spotify/callback/';
+    const redirectUri = 'http://localhost:4000/spotify/callback/';
 
     const spotifyApi = new SpotifyWebApi({
         clientId,
@@ -12,6 +12,7 @@ const getSpotify = ((req, res, next) => {
         redirectUri
     });
 
+    // TODO: Change if we add Apple support
     if (req.tokens) {
         spotifyApi.setAccessToken(req.tokens.spotify);
     }
