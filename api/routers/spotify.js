@@ -18,6 +18,7 @@ router.use(getSpotifyApi);
  */
 
 router.get('/login', (req, res) => {
+    console.log('hey');
     const spotifyApi = req.spotifyApi;
     const spotifyLoginURL = spotifyApi.createAuthorizeURL(req.scopes, req.jwt_token);
     res.redirect(spotifyLoginURL); 
@@ -36,8 +37,8 @@ router.get('/callback', getUser, async (req, res) => {
         user.spotify_refresh_token = refresh_token;
         await user.save();
 
-        const jwt_token = await user.generateJWT({ spotify: access_token });
-        res.send({ token: jwt_token });
+        const user_access_token = await user.generateAccessToken();
+        res.send({ access_token: user_access_token });
 
     } catch (err) {
         console.log(err);
