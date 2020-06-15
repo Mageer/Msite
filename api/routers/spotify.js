@@ -19,7 +19,17 @@ router.use(getSpotifyApi);
 
 router.get('/login', (req, res) => {
     const spotifyApi = req.spotifyApi;
-    const scopes = ["streaming", "user-read-email", "user-read-private", "user-read-currently-playing"];
+
+    /** For more on scopes, please read the Spotify API docs:
+     * https://developer.spotify.com/documentation/general/guides/scopes/
+     */
+    const scopes = [
+        "streaming", 
+        "user-read-email", 
+        "user-read-private", 
+        "user-read-currently-playing"
+    ];
+
     const spotifyLoginURL = spotifyApi.createAuthorizeURL(scopes, req.jwt_token);
     res.redirect(spotifyLoginURL); 
 });
