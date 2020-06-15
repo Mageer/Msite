@@ -18,7 +18,6 @@ router.use(getSpotifyApi);
  */
 
 router.get('/login', (req, res) => {
-    console.log('hey');
     const spotifyApi = req.spotifyApi;
     const spotifyLoginURL = spotifyApi.createAuthorizeURL(req.scopes, req.jwt_token);
     res.redirect(spotifyLoginURL); 
