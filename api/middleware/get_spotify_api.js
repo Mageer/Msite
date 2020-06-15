@@ -10,7 +10,6 @@ const getSpotify = ((req, res, next) => {
     }
 
     req.spotifyApi = spotifyApi;
-    req.scopes = ["streaming", "user-read-email", "user-read-private"];
     next();
 });
 

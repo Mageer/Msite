@@ -19,7 +19,8 @@ router.use(getSpotifyApi);
 
 router.get('/login', (req, res) => {
     const spotifyApi = req.spotifyApi;
-    const spotifyLoginURL = spotifyApi.createAuthorizeURL(req.scopes, req.jwt_token);
+    const scopes = ["streaming", "user-read-email", "user-read-private", "user-read-currently-playing"];
+    const spotifyLoginURL = spotifyApi.createAuthorizeURL(scopes, req.jwt_token);
     res.redirect(spotifyLoginURL); 
 });
 
@@ -53,6 +54,27 @@ router.get('/me', async (req, res) => {
         res.send(me.body);
     } catch (err) {
         console.log(err.message);
+        res.status(400).send(err);
+    }
+});
+
+
+router.get('/current-playing-track', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    try {
+        const {body: trackDataBody} = await spotifyApi.getMyCurrentPlayingTrack();
+        const trackData = trackDataBody.item;
+        if ( !trackData ) {
+            return res.status(400).send("No track playing");
+        }
+
+        const trackName = trackData.name;
+        const artistsData = trackData.artists;
+        const artists = artistsData.map(artist => artist.name);
+        res.send({trackName, artists});
+
+    } catch (err) {
+        console.log(err);
         res.status(400).send(err);
     }
 });
