@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SearchButton from './search_button'
+import SearchForm from './search_form'
 
 export class LyricsWindow extends Component {
     constructor(props) {
@@ -21,15 +21,15 @@ export class LyricsWindow extends Component {
     }
 
 
-    handleClick = (value) => {
+    handleSubmit = (value) => {
         this.get_lyrics(value);
     }
 
-    
+
     render() {
         return (
             <div>
-            <SearchButton onClick={this.handleClick}/>
+            <SearchForm onSubmit={this.handleSubmit}/>
             <pre>
                 <h2>{this.state.name}</h2>
                 <p>{this.state.lyrics}</p>

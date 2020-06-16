@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class SearchButton extends Component {
+export class SearchForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -13,22 +13,24 @@ export class SearchButton extends Component {
       this.setState({value: event.target.value});
     }
   
-    handleClick = (event) => {
-      this.props.onClick(this.state.value);
+    handleSubmit = (event) => {
+      this.props.onSubmit(this.state.value);
       event.preventDefault(); // Unsure.
     }
 
     render() {
       return (
         <div>
+        <form onSubmit={this.handleSubmit}>
           <label>
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <button onClick={this.handleClick}>{this.state.buttonText}</button>
+          <input type="submit" value="Search" />
+        </form>
         </div>
       );
     }
 }
 
 
-export default SearchButton;
+export default SearchForm;
