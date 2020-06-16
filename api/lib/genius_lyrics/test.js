@@ -11,3 +11,11 @@ genius.getLyrics('What a wonderful')
 genius.getLyrics('Wasdfasdfasfasdfasdf')
     .then((res) => console.log(res))
     .catch((err) => console.log(err.message))
+
+genius.getLyrics()
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err.message))
+
+genius.getLyrics('')
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err.message))    

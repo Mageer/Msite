@@ -18,6 +18,10 @@ geniusApi.prototype = {
      * @private 
      */  
     getSongURL : async function(search_keyword){
+        if ( !search_keyword ){
+            throw Error('Search empty');
+        }
+
         const res = await fetch('https://api.genius.com/search?q=' + search_keyword, {headers: this._auth});
         const body = await res.text();
         const body_parsed = JSON.parse(body);
