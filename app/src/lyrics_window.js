@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import SearchButton from './search_button'
 
-export class Lyrics extends Component {
+export class LyricsWindow extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { 
+            search: 'hey ya',
             name: null,
             lyrics: null,
-        }
+        };
     }
 
     get_lyrics = (search) => {
@@ -17,24 +19,23 @@ export class Lyrics extends Component {
         .catch((err) => this.setState({name: "No matching song found..."}));
     }
 
-    componentDidMount() {
-        if (this.props.songName){
-            this.get_lyrics(this.props.songName); 
-        }
+    handleClick = (value) => {
+        this.setState({songName: value});
+        this.get_lyrics(value);
     }
-    
+
     render() {
         return (
-          <div>
+            <div>
+            <SearchButton onClick={this.handleClick}/>
             <pre>
                 <h2>{this.state.name}</h2>
                 <p>{this.state.lyrics}</p>
             </pre>
-          </div>
+            </div>
         );
-    }
+      }
 }
 
 
-export default Lyrics
-
+export default LyricsWindow;

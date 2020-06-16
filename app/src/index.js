@@ -1,19 +1,10 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
-import Lyrics from './lyrics'
-import SearchForm from './search_form'
-//import Clock from './clock'
-//import Toggle from './toggle'
+import LyricsWindow from './lyrics_window'
 
-
-
-// ReactDOM.render(
-//   <Lyrics songName="wonderful world"/>,
-//   document.getElementById('lyrics')
-// );
 
 ReactDOM.render(
-  <SearchForm/>,
+  <LyricsWindow/>,
   document.getElementById('lyrics')
 );
 
