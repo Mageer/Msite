@@ -49,62 +49,77 @@ geniusApi.prototype = {
     },
 
     /**
-     * Attempts to extract lyrics from body.
+     * Extract lyrics from the second source code.
+     * 
+     * The webpage containing the lyrics inconsistently returns
+     * different html source codes. This parses the more complicated
+     * lyrics source code.
+     * 
+     * @param {String} $ loaded body through cheerio
+     * @return {String}     the lyrics
+     * @private
+     */
+    parseOtherSourceCode: ($) => {
+        const div = ".SongPageGrid-sc-1vi6xda-0.DGVcp.Lyrics__Root-sc-1ynbvzw-0.jvlKWy";
+    
+        // Magic
+        const str = $(div).html();
+        if ( !str ) {
+            return {};
+        }
+        const regex = /<br\s*[\/]?>/gi;
+        $(div).html(str.replace(regex, "\n"));
+        
+        const lyrics = $(div).text();
+        return lyrics;
+    },
+
+    /**
+     * Extract lyrics from body.
      * 
      * @param {String} body from song URL
      * @return {String}     nothing if no lyrics found
      * @private
      */
-    extractLyrics: (body) => {
-        const body_parsed = cheerio.load(body);
-        const lyrics = body_parsed('.lyrics');
-        const lyrics_text = cheerio.text(lyrics);
-        return lyrics_text;
-    },
+    extractLyrics: function(body) {
+        const $ = cheerio.load(body);
 
-    /**
-     * Get the lyrics.
-     * 
-     * The webpage containing the lyrics inconsistently returns
-     * different html source codes. Some of which are not easily
-     * scraped for lyrics. Therefore, we allow for several attempts 
-     * at retrieving the lyrics. 
-     * 
-     * @param {String}  song        song name
-     * @param {int}     maxTries    number of attempts, default 3
-     * @return {String}             nothing if no lyrics found
-     * @public
-     */
-    getLyrics: async function(song, maxTries=3) {
-        for (let i=0; i<maxTries; i++){
-
-            const body = await this.getSourceCode(song);
-            const lyrics = await this.extractLyrics(body);
-
-            if (lyrics){
-                const name = this.getTitle(body)
-                return {name, lyrics};
-            };
-
-            console.log('Lyrics not found'); 
-        };
+        // Attempt easy lyrics extraction
+        let lyrics = $('.lyrics').text();
+        if ( !lyrics ) {
+            lyrics = this.parseOtherSourceCode($);
+        }
+        return lyrics;
     },
 
     /**
      * Get's song title.
      * 
-     * 
      * @param {String} body from song URL
      * @return {String} 
-     * @public
+     * @private
      */
-    getTitle: (body) => {
+    extractTitle: (body) => {
         const titleWithStamp = cheerio.text(cheerio.load(body)('title'));
         const re = / Lyrics \| Genius Lyrics/;
         const title = titleWithStamp.replace(re, "");
         return title;
-    }
+    },
 
+    /**
+     * Get's the song title and lyrics.
+     * 
+     * @param {String} song search query
+     * @return {Object}     title and lyrics
+     * @public
+     */
+    getLyrics: async function(song) {
+        const body = await this.getSourceCode(song);
+        const lyrics = this.extractLyrics(body);
+        const name = this.extractTitle(body);
+        return ({ name, lyrics });
+    }
 };
+
 
 module.exports = geniusApi;
