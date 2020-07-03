@@ -14,7 +14,9 @@ export class SearchForm extends Component {
     }
   
     handleSubmit = (event) => {
+      console.log('ok');
       this.props.onSubmit(this.state.value);
+      console.log('bound');
       event.preventDefault(); // Unsure.
     }
 

@@ -1,10 +1,15 @@
-import ReactDOM from 'react-dom'
 import React from 'react'
-import LyricsWindow from './lyrics_window'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import App from './components/app'
+import configureStore from './configure_store'
 
+const store = configureStore();
 
-ReactDOM.render(
-  <LyricsWindow/>,
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('lyrics')
 );
 
