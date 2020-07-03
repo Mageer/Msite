@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
         res.send(lyrics);
 
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
         res.status(400).send('Something went wrong');
     };
 });
