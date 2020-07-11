@@ -1,14 +1,13 @@
 import { connect } from 'react-redux'
-import LyricsWindow from '../components/lyrics_window'
+import Lyrics from '../components/lyrics'
 
 const mapStateToProps = state => {
     return {
-      lyrics: state.lyrics,
-      name: state.songName,
-      isFetching: state.isFetching
+      songName: state.lyrics.songName,
+      lyrics: state.lyrics.lyrics,
+      isFetching: state.lyrics.isFetching,
+      currentPlayingTrack: state.currentPlayingTrack.trackName,
     }
 }
-  
-const Lyrics = connect(mapStateToProps)(LyricsWindow)
-  
-export default Lyrics
+
+export default connect(mapStateToProps)(Lyrics)

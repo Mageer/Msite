@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Login from './login'
+import LoginUser from '../containers/login_user'
 
 export class Welcome extends Component {
 
@@ -12,7 +12,7 @@ export class Welcome extends Component {
                 <h2>
                     Please login
                 </h2>
-                <Login setLoggedin={this.props.setLoggedin} setAccessToken={this.props.setAccessToken} />
+                <LoginUser />
             </div>
         );
     }

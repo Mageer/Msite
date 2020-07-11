@@ -5,17 +5,19 @@ import {
 } from '../actions/lyrics'
 
 
-const initalLyrics = {
+const initialLyrics = {
+    searchQuery: '',
     songName: '',
     isFetching: false,
     lyrics: ''
 }
 
-export const lyrics = (state = initalLyrics, action) => {
+export const lyrics = (state = initialLyrics, action) => {
     switch (action.type) {
         case LYRICS_REQUEST:
             return {
                 ...state,
+                searchQuery: action.searchQuery,
                 songName: '',
                 lyrics: '',
                 isFetching: true,
@@ -30,6 +32,7 @@ export const lyrics = (state = initalLyrics, action) => {
         case LYRICS_FAILURE: // Add failure message
             return {
                 ...state,
+                searchQuery: action.searchQuery,
                 songName: '',
                 isFetching: false,
                 lyrics: 'Lyrics not found',

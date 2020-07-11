@@ -14,12 +14,13 @@ body {
 #lyrics {
     display: flex;
     margin: auto;
-    margin-top: 10%;
-    width: 50%;
+    margin-top: 5%;
+    width: 30%;
     height: 400px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     overflow-y: auto;
+    word-wrap: break-word;
     padding: 15px;
   }
 

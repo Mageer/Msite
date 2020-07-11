@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './components/app'
+import App from './containers/app'
 import configureStore from './configure_store'
 
 const store = configureStore();
@@ -13,3 +13,4 @@ render(
   document.getElementById('lyrics')
 );
 
+console.log(store.getState());

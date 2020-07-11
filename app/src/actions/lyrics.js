@@ -1,7 +1,7 @@
 export const LYRICS_REQUEST = 'LYRICS_REQUEST';
-const lyricsRequest = (songName) => ({
+const lyricsRequest = (searchQuery) => ({
     type: LYRICS_REQUEST,
-    songName
+    searchQuery
 });
 
 
@@ -14,23 +14,19 @@ const lyricsReceive = (songName, lyrics) => ({
 
 
 export const LYRICS_FAILURE = 'LYRICS_FAILURE';
-const lyricsFailure = (songName) => ({
+const lyricsFailure = (searchQuery) => ({
     type: LYRICS_FAILURE,
-    songName,
+    searchQuery,
 })
 
 
-export const fetchLyrics = (songName) => {
+export const fetchLyrics = (searchQuery) => {
     return (dispatch) => {
-        dispatch(lyricsRequest(songName));
-
-        return fetch("/lyrics?search=" + encodeURI(songName))
+        dispatch(lyricsRequest(searchQuery));
+        console.log(searchQuery);
+        return fetch("/lyrics?search=" + encodeURI(searchQuery))
                     .then(res => res.json())
                     .then(({ name, lyrics }) => dispatch(lyricsReceive(name, lyrics)))
-                    .catch(err => dispatch(lyricsFailure(songName)));
+                    .catch(err => dispatch(lyricsFailure(searchQuery)));
     }
 }
-
-
-
-
