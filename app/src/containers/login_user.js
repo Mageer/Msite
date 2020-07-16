@@ -4,6 +4,7 @@ import { loginUser } from '../actions/login_user'
 
 const mapStateToProps = state => {
     return {
+        loginError: state.loginUser.error,
         isFetching: state.loginUser.isFetching
     }
 }

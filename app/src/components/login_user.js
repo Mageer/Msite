@@ -1,39 +1,111 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Alert from '@material-ui/lab/Alert';
+import { withStyles } from '@material-ui/core/styles';
+import { 
+  Button, 
+  Card, 
+  TextField,
+} from '@material-ui/core';
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { css } from "@emotion/core";
 
-export default function ({ isFetching, loginUser }) {
-  const { register, handleSubmit, errors } = useForm();
-
-  const registerUser = data => {
-    console.log("Registering as " + data.username);
-  }
+function LoginUser (props) {
+  const { classes, loginError, loginUser, isFetching } = props;
+  const { register, handleSubmit} = useForm();
 
   const login = data => {
     loginUser(data.username, data.password);
   }
 
+  const loginStatus = () => {
+    if ( loginError ) {
+      return (<Alert severity="error"> Login failed! </Alert>);
+    }
+    if ( isFetching ) {
+      return <ScaleLoader size={50} color={"#99ff99"} css={css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+      `}/>
+    }
+    return null;
+  }
+
   return (
-    <form>
-        <br/>
-        <br/>
-        <input 
-            name="username" 
-            placeholder="Username" 
-            ref={register({ required: true })}
-        />
-        {errors.username && <span style={{color: "red"}}> required</span>}
+    <div>
+    <Card className={classes.root}>
+      <div className={classes.loginForm}>
+        <form onSubmit={handleSubmit(login)}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            inputRef={register}
+            required
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+          />
+          <br/>
 
-        <br/>
-        <input 
-            name="password" 
-            placeholder="Password" 
-            ref={register({ required: true })} 
-        />
-        {errors.password && <span style={{color: "red"}}> required</span>}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            inputRef={register}
+            required
+            id="password"
+            label="Password"
+            name="password"
+            autoComplete="password"
+          />
+          <br/>
 
-        <br/>
-        <button type="submit" name="login" onClick={handleSubmit(login)}>Login</button>
-        <button type="submit" name="register" onClick={handleSubmit(registerUser)}>Register</button>
-    </form>
+          <div className={classes.submit}>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              type="submit"
+              className={classes.button} 
+            >
+              Log In
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Card>
+
+    <div className={classes.status}>
+      {loginStatus()}
+    </div>
+
+    </div>
   );
 }
+
+
+const styles = {
+  root: {
+    //backgroundColor: 'rgba(255, 255, 255, 0.7)'
+  },
+  status: {
+    display: 'table',
+    width: '95%',
+    margin: '5px auto',
+    height: '50px',
+    textAlign: 'center'
+  },
+  loginForm: {
+    display: 'table',
+    margin: '0 auto',
+    padding: '15px',
+  },
+  submit: {
+    display: 'table', 
+    margin: '0 auto',
+    color: 'red'
+  },
+};
+
+export default withStyles(styles)(LoginUser)

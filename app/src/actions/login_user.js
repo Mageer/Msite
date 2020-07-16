@@ -7,7 +7,7 @@ const loginUserRequest = (username, password) => ({
 
 
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
-const loginUserReceive = (username, access_token) => ({
+export const loginUserReceive = (username, access_token) => ({
     type: LOGIN_USER_SUCCESS,
     username,
     access_token,
@@ -15,9 +15,10 @@ const loginUserReceive = (username, access_token) => ({
 
 
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
-const loginUserFailure = (username) => ({
+const loginUserFailure = (username, err) => ({
     type: LOGIN_USER_FAILURE,
     username,
+    err,
 })
 
 
@@ -36,8 +37,13 @@ export const loginUser = (username, password) => {
         }
 
         return fetch("/user/login", options)
-                    .then(res => res.json())
+                    .then(res => {
+                        if ( !res.ok ) {
+                            throw new Error('Unauthorized');
+                        }
+                        return res.json();
+                    })
                     .then(({ access_token }) => dispatch(loginUserReceive(username, access_token)))
-                    .catch(err => dispatch(loginUserFailure(username)));
+                    .catch(error => dispatch(loginUserFailure(username, error.message)));
     }
 }

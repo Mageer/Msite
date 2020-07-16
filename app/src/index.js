@@ -10,7 +10,7 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('lyrics')
+  document.getElementById('root')
 );
 
 console.log(store.getState());
