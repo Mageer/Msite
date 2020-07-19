@@ -1,50 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react';
 import {
-    Route,
-    BrowserRouter,
-    Switch
-} from "react-router-dom";
+  Route,
+  BrowserRouter,
+  Switch,
+} from 'react-router-dom';
+import Welcome from '../containers/Welcome';
+import Home from '../containers/Home';
+import LoginSpotify from '../containers/LoginSpotify';
+import SpotifyCallback from '../containers/SpotifyCallback';
+import PageNotFound from './PageNotFound';
 
-import Welcome from '../containers/welcome'
-import Home from '../containers/home'
-import LoginSpotify from '../containers/login_spotify'
-import SpotifyCallback from '../containers/spotify_callback'
-import PageNotFound from './page_not_found'
+function App() {
+  return (
+    <BrowserRouter>
+      <div className='Routes'>
+        <Switch>
 
-export class App extends Component {
+          <Route path="/home">
+            <Home />
+          </Route>
 
-    render() {
-        return (
-            <BrowserRouter>
-            <div className='Routes'>
-            <Switch>
+          <Route path="/login-spotify">
+            <LoginSpotify />
+          </Route>
 
-                <Route path="/home">
-                    <Home />
-                </Route>
+          <Route path="/spotify-callback">
+            <SpotifyCallback />
+          </Route>
 
-                <Route path="/login-spotify">
-                    <LoginSpotify />
-                </Route>
+          <Route exact path="/">
+            <Welcome />
+          </Route>
 
-                <Route path="/spotify-callback">
-                    <SpotifyCallback />
-                </Route>
-                
-                <Route exact path="/">
-                    <Welcome />
-                </Route>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
 
-                <Route path="*">
-                    <PageNotFound />
-                </Route>
-
-            </Switch>
-            </div>
-            </BrowserRouter>
-        );
-    }
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
 }
-
 
 export default App;

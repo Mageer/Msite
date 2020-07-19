@@ -1,10 +1,8 @@
-import { connect } from 'react-redux'
-import SpotifyPlayer from '../components/spotifyPlayer'
+import { connect } from 'react-redux';
+import SpotifyPlayer from '../components/SpotifyPlayer';
 
-const mapStateToProps = state => {
-    return {
-        jwt_token: state.loginUser.access_token
-    }
-}
+const mapStateToProps = (state) => ({
+  jwtToken: state.loginUser.accessToken,
+});
 
-export default connect(mapStateToProps)(SpotifyPlayer)
+export default connect(mapStateToProps)(SpotifyPlayer);

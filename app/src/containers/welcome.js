@@ -1,10 +1,8 @@
-import { connect } from 'react-redux'
-import Welcome from '../components/welcome'
+import { connect } from 'react-redux';
+import Welcome from '../components/Welcome';
 
-const mapStateToProps = state => {
-    return {
-        loggedIn: state.loginUser.loggedIn
-    }
-}
+const mapStateToProps = (state) => ({
+  loggedIn: state.loginUser.loggedIn,
+});
 
-export default connect(mapStateToProps)(Welcome)
+export default connect(mapStateToProps)(Welcome);

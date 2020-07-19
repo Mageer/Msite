@@ -1,13 +1,10 @@
-import { connect } from 'react-redux'
-import Lyrics from '../components/lyrics'
+import { connect } from 'react-redux';
+import Lyrics from '../components/Lyrics';
 
-const mapStateToProps = state => {
-    return {
-      songName: state.lyrics.songName,
-      lyrics: state.lyrics.lyrics,
-      isFetching: state.lyrics.isFetching,
-      currentPlayingTrack: state.currentPlayingTrack.trackName,
-    }
-}
+const mapStateToProps = (state) => ({
+  songName: state.lyrics.songName,
+  lyrics: state.lyrics.lyrics,
+  isFetching: state.lyrics.isFetching,
+});
 
-export default connect(mapStateToProps)(Lyrics)
+export default connect(mapStateToProps)(Lyrics);
