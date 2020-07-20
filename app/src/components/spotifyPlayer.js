@@ -1,9 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Script from 'react-load-script';
 import jwt from 'jsonwebtoken';
 
-function SpotifyPlayer(props) {
-  const { jwtToken } = props;
+function SpotifyPlayer() {
+  const jwtToken = useSelector((state) => state.loginUser.accessToken);
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     const decodedJwt = jwt.decode(jwtToken);
@@ -15,7 +16,7 @@ function SpotifyPlayer(props) {
     player.connect();
   };
 
-  const handleCreate = () => console.log('loading');
+  const handleCreate = () => console.log('Spotify playe loading');
   const handleError = () => console.log('Spotify player failed to load');
   const handleLoad = () => console.log('Spotify player loaded');
 

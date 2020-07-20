@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginUser from '../containers/LoginUser';
+import LoginUser from './LoginUser';
 
 const useStyles = makeStyles({
   root: {

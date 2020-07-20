@@ -1,18 +1,19 @@
 import React from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import SplitPane from 'react-split-pane';
 import Lyrics from './Lyrics';
-import SpotifyPlayer from '../containers/SpotifyPlayer';
+import SpotifyPlayer from './SpotifyPlayer';
 import RefreshAccessToken from './RefreshAccessToken';
-import LoginSpotify from '../containers/LoginSpotify';
+import LoginSpotify from './LoginSpotify';
 
 const useStyles = makeStyles({
   root: {
-    height: '98vh',
+    height: '95vh',
   },
   leftPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     color: 'white',
     margin: '10px',
     padding: '15px',
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
     height: '95vh',
   },
   rightPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     color: 'white',
     margin: '10px',
     padding: '15px',
@@ -37,7 +38,8 @@ const useStyles = makeStyles({
   },
 });
 
-function Home({ loggedIn }) {
+function Home() {
+  const { loggedIn } = useSelector((state) => state.loginUser, shallowEqual);
   const classes = useStyles();
 
   if (!loggedIn) {

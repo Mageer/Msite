@@ -1,13 +1,11 @@
 import React from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  Card,
-  TextField,
-} from '@material-ui/core';
+import { Button, Card, TextField } from '@material-ui/core';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import { loginUser } from '../actions/loginUser';
 
 const useStyles = makeStyles({
   root: {
@@ -31,17 +29,14 @@ const useStyles = makeStyles({
   },
 });
 
-function LoginUser(props) {
-  const {
-    loginError,
-    loginUser,
-    isFetching,
-  } = props;
-  const classes = useStyles();
+function LoginUser() {
+  const { loginError, isFetching } = useSelector((state) => state.loginUser, shallowEqual);
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const classes = useStyles();
 
   const login = (data) => {
-    loginUser(data.username, data.password);
+    dispatch(loginUser(data.username, data.password));
   };
 
   const loginStatus = () => {

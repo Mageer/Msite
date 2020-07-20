@@ -1,18 +1,14 @@
 import React from 'react';
-import {
-  Route,
-  BrowserRouter,
-  Switch,
-} from 'react-router-dom';
-import Welcome from '../containers/Welcome';
-import Home from '../containers/Home';
-import LoginSpotify from '../containers/LoginSpotify';
-import SpotifyCallback from '../containers/SpotifyCallback';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Welcome from './Welcome';
+import Home from './Home';
+import LoginSpotify from './LoginSpotify';
+import SpotifyCallback from './SpotifyCallback';
 import PageNotFound from './PageNotFound';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className='Routes'>
         <Switch>
 
@@ -38,7 +34,7 @@ function App() {
 
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

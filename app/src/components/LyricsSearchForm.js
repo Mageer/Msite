@@ -1,10 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { fetchLyrics } from '../actions/lyrics';
 
-function Lyrics(props) {
-  const { fetchLyrics } = props;
+function Lyrics() {
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
-  const searchSong = (data) => fetchLyrics(data.search);
+  const searchSong = (data) => dispatch(fetchLyrics(data.search));
 
   return (
     <form>

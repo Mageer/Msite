@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import LyricsSearchForm from '../containers/LyricsSearchForm';
+import LyricsSearchForm from './LyricsSearchForm';
 import CurrentPlayingTrack from './CurrentPlayingTrack';
 
 function Lyrics() {
   const { songName, lyrics, isFetching } = useSelector((state) => state.lyrics, shallowEqual);
+
   return (
     <div style={{ textAlign: 'center' }}>
       <LyricsSearchForm />
