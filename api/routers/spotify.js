@@ -31,7 +31,7 @@ router.get('/login', (req, res) => {
     ];
 
     const spotifyLoginURL = spotifyApi.createAuthorizeURL(scopes, req.jwt_token);
-    res.redirect(spotifyLoginURL); 
+    res.send({url: spotifyLoginURL+'&show_dialog=true'});
 });
 
 
@@ -48,7 +48,12 @@ router.get('/callback', getUser, async (req, res) => {
         await user.save();
 
         const user_access_token = await user.generateAccessToken();
-        res.send({ access_token: user_access_token });
+
+        res.redirect(process.env.CLIENT_BASE_URI 
+            + 'spotify-callback' 
+            + '?' + 'username=' + user.username
+            + '&' + 'access_token=' + user_access_token
+            + '&' + 'spotify_access_token=' + access_token);
 
     } catch (err) {
         console.log(err);
@@ -71,6 +76,7 @@ router.get('/me', async (req, res) => {
 
 router.get('/current-playing-track', async (req, res) => {
     const spotifyApi = req.spotifyApi;
+
     try {
         const {body: trackDataBody} = await spotifyApi.getMyCurrentPlayingTrack();
         const trackData = trackDataBody.item;
