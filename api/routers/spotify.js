@@ -96,27 +96,41 @@ router.get('/current-playing-track', async (req, res) => {
 });
 
 
-router.get('/track', async (req,res) => {
+router.get('/tracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     try {
-        const tracks = await spotifyApi.searchTracks(req.query.name, {limit:1});
-        const track = tracks.body.tracks.items[0];
-
-        if (!track){
-            return res.status(404).send('No such song');
+        const searchQuery = req.query.search;
+        const searchResponse = await spotifyApi.searchTracks(searchQuery, {limit:10});
+        const tracks = searchResponse.body.tracks.items;
+      
+        if (!tracks[0]){
+            return res.status(404).send({ error: 'No match' });
         }
+        const tracksInfo = tracks.map((track) => ({
+            artists: track.artists.map((artist) => artist.name),
+            name: track.name,
+            id: track.id,
+        }));
 
-        res.status(200).send({
-            artist: track.artists[0].name,
-            song_name: track.name,
-            duration: Duration(track.duration_ms).msg,
-        });
+        res.status(200).send(tracksInfo);
 
     } catch (err) {
         console.log(err);
-        res.status(400).send(err.message);
+        res.status(400).send({ error: err.message });
     } 
 });
+
+
+router.post('/play-track', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    try {
+        const trackURI = req.query.uri;
+        spotifyApi.play({uris: [`spotify:track:${trackURI}`]})
+        res.send({});
+    } catch(err) {
+        res.status(400).send({ error: err.msg})
+    }
+})
 
 
 module.exports = router;

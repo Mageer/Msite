@@ -1,20 +1,20 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SplitPane from 'react-split-pane';
 import Lyrics from './Lyrics';
 import SpotifyPlayer from './SpotifyPlayer';
-import RefreshAccessToken from './RefreshAccessToken';
-import LoginSpotify from './LoginSpotify';
+import SearchTracks from './SearchTracks';
+import TracksList from './TracksList';
 
 const useStyles = makeStyles({
   root: {
-    height: '95vh',
+    height: '600px',
   },
   leftPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     margin: '10px',
     padding: '15px',
     marginRight: '5px',
@@ -23,8 +23,7 @@ const useStyles = makeStyles({
     height: '95vh',
   },
   rightPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     margin: '10px',
     padding: '15px',
     marginLeft: '5px',
@@ -35,6 +34,7 @@ const useStyles = makeStyles({
   inner: {
     display: 'table',
     margin: '10px auto',
+    width: '95%',
   },
 });
 
@@ -47,14 +47,23 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
+      <SpotifyPlayer />
       <SplitPane split="vertical" defaultSize="50%" className={classes.root}>
 
         <div className={classes.leftPane}>
           <div className={classes.inner}>
-            <SpotifyPlayer />
-            <RefreshAccessToken />
-            <LoginSpotify />
+            <SearchTracks />
+            <div style={{
+              width: '100%',
+              height: '500px',
+              overflowY: 'scroll',
+            }}>
+            <Box>
+              <TracksList />
+            </Box>
+            </div>
+
           </div>
         </div>
 

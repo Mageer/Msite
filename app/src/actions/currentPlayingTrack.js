@@ -17,8 +17,10 @@ const currentPlayingTrackFailure = () => ({
   type: CURRENT_PLAYING_TRACK_FAILURE,
 });
 
-export const fetchCurrentPlayingTrack = (accessToken) => (dispatch) => {
-  dispatch(currentPlayingTrackRequest(accessToken));
+export const fetchCurrentPlayingTrack = () => (dispatch, getState) => {
+  dispatch(currentPlayingTrackRequest());
+
+  const { accessToken } = getState().loginUser;
   const bearer = `Bearer ${accessToken}`;
   const options = {
     method: 'GET',

@@ -35,9 +35,7 @@ function LoginUser() {
   const { register, handleSubmit } = useForm();
   const classes = useStyles();
 
-  const login = (data) => {
-    dispatch(loginUser(data.username, data.password));
-  };
+  const login = (data) => dispatch(loginUser(data.username, data.password));
 
   const loginStatus = () => {
     if (loginError) {

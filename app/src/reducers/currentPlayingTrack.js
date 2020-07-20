@@ -14,7 +14,7 @@ function currentPlayingTrack(state = initialTrack, action) {
     case CURRENT_PLAYING_TRACK_REQUEST:
       return {
         ...state,
-        trackName: 'poopy',
+        trackName: '',
         isFetching: true,
       };
     case CURRENT_PLAYING_TRACK_SUCCESS:

@@ -10,7 +10,7 @@ function SpotifyPlayer() {
     const decodedJwt = jwt.decode(jwtToken);
     const token = decodedJwt.tokens.spotify;
     const player = new window.Spotify.Player({
-      name: 'Web Playback SDK Quick Start Player',
+      name: 'M-site',
       getOAuthToken: (cb) => { cb(token); },
     });
     player.connect();
