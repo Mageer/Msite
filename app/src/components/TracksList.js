@@ -50,10 +50,12 @@ function TracksList() {
     <List height='400' className={classes.root}>
       {tracks.map((track, index) => (
         <ListItem
-        button key={index}
-        className={classes.item}
-        onClick={() => handleClick(track.id)}>
-          {`${track.artists[0]} - ${track.name}`}
+          button 
+          key={index}
+          className={classes.item}
+          onClick={() => handleClick(track.id)}
+        >
+          {`${track.artists[0]} - ${track.name}`} 
         </ListItem>
       ))}
     </List>
