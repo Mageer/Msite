@@ -106,10 +106,12 @@ router.get('/tracks', async (req, res) => {
         if (!tracks[0]){
             return res.status(404).send({ error: 'No match' });
         }
+        
         const tracksInfo = tracks.map((track) => ({
             artists: track.artists.map((artist) => artist.name),
             name: track.name,
             id: track.id,
+            albumArtUrl: track.album.images[2].url,
         }));
 
         res.status(200).send(tracksInfo);
@@ -129,6 +131,18 @@ router.post('/play-track', async (req, res) => {
         res.send({});
     } catch(err) {
         res.status(400).send({ error: err.msg})
+    }
+})
+
+router.put('/transfer-playback', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    try {
+        const device_id = req.query.device_id;
+        const play = req.query.play || false;
+        spotifyApi.transferMyPlayback({ deviceIds:[ device_id ], play });
+        res.send({});
+    } catch(err) {
+        res.status(400).send({ error: err.msg });
     }
 })
 
