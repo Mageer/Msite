@@ -2,9 +2,10 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Welcome from './Welcome';
 import Home from './Home';
-import LoginSpotify from './LoginSpotify';
-import SpotifyCallback from './SpotifyCallback';
+import LoginSpotify from './auth/LoginSpotify';
+import SpotifyCallback from './auth/SpotifyCallback';
 import PageNotFound from './PageNotFound';
+import SpotifyPlayer from './player/SpotifyPlayer';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
         </Switch>
       </div>
+      <SpotifyPlayer />
     </Router>
   );
 }

@@ -19,7 +19,7 @@ const searchTracksFailure = (searchQuery, error) => ({
 export const fetchTracks = (searchQuery) => (dispatch, getState) => {
   dispatch(searchTracksRequest(searchQuery));
 
-  const { accessToken } = getState().loginUser;
+  const { accessToken } = getState().user;
   const bearer = `Bearer ${accessToken}`;
   const options = {
     method: 'GET',

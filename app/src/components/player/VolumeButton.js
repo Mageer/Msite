@@ -19,24 +19,21 @@ const useStyles = makeStyles({
 })
 
 
-function VolumeButton() {
+function VolumeButton(props) {
   const classes = useStyles();
-  const [mute, setMute] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const { mute, unMute } = props;
 
-  const toggleMute = () => {
-    if (mute) {
-      return <VolumeOffRoundedIcon className={classes.root} onClick={() => {
-        setMute(false);
-      }} />
-    }
-    return <VolumeUpRoundedIcon className={classes.root} onClick={() => {
-        setMute(true);
-      }} />
+  if (muted) {
+    return <VolumeOffRoundedIcon className={classes.root} onClick={() => {
+      setMuted(false);
+      unMute();
+    }} />;
   }
-
-  return (
-    toggleMute()
-  );
+  return <VolumeUpRoundedIcon className={classes.root} onClick={() => {
+      setMuted(true);
+      mute();
+    }} />;
 }
 
 export default VolumeButton;

@@ -16,11 +16,10 @@ const useStyles = makeStyles({
   },
 })
 
-function NextButton() {
+function NextButton(props) {
   const classes = useStyles();
-  return (
-    <SkipNextRoundedIcon className={classes.root} onClick={() => console.log('next')}/>
-  );
+  const { onClick } = props;
+  return <SkipNextRoundedIcon className={classes.root} onClick={onClick} />;
 }
 
 export default NextButton;

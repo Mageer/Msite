@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCurrentPlayingTrackLyrics } from '../actions/currentPlayingTrack';
+import { fetchCurrentPlayingTrackLyrics } from '../../actions/currentPlayingTrack';
 
 function CurrentPlayingTrack() {
   const dispatch = useDispatch();

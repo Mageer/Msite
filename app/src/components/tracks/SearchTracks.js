@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Card } from '@material-ui/core';
-import { fetchTracks } from '../actions/searchTracks';
+import { fetchTracks } from '../../actions/searchTracks';
 
 function SearchTracks() {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ function SearchTracks() {
           id="search"
           label="Search"
           name="search"
+          autoComplete='off'
         />
         <Button
         style={{ margin: 'bottom' }}

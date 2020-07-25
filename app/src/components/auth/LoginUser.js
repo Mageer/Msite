@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Card, TextField } from '@material-ui/core';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import { loginUser } from '../actions/loginUser';
+import { loginUser } from '../../actions/user';
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 });
 
 function LoginUser() {
-  const { loginError, isFetching } = useSelector((state) => state.loginUser, shallowEqual);
+  const { loginError, isFetching } = useSelector((state) => state.user, shallowEqual);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const classes = useStyles();

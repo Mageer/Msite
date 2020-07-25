@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { fetchLyrics } from '../actions/lyrics';
+import { fetchLyrics } from '../../actions/lyrics';
 
 function Lyrics() {
   const dispatch = useDispatch();

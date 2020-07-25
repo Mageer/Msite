@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginUser from './LoginUser';
+import LoginUser from './auth/LoginUser';
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 function Welcome() {
-  const loggedIn = useSelector((state) => state.loginUser.loggedIn, shallowEqual);
+  const loggedIn = useSelector((state) => state.user.loggedIn, shallowEqual);
   const classes = useStyles();
 
   if (loggedIn) {

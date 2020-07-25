@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function LoginSpotify() {
-  const { accessToken } = useSelector((state) => state.loginUser, shallowEqual);
+  const accessToken = useSelector((state) => state.user.accessToken);
 
   const login = () => {
     const bearer = `Bearer ${accessToken}`;

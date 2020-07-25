@@ -2,12 +2,16 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
-} from '../actions/loginUser';
+  REFRESH_USER_REQUEST,
+  REFRESH_USER_SUCCESS,
+  REFRESH_USER_FAILURE,
+} from '../actions/user';
 
 const initialLoginUser = {
   loggedIn: false,
   username: '',
-  isFetching: false,
+  isLoggingIn: false,
+  isRefreshing: false,
   accessToken: '',
 };
 
@@ -19,14 +23,14 @@ const initialLoginUser = {
 //     accessToken: ''
 // }
 
-function loginUser(state = initialLoginUser, action) {
+function user(state = initialLoginUser, action) {
   switch (action.type) {
     case LOGIN_USER_REQUEST:
       return {
         ...state,
         loggedIn: false,
         username: action.username,
-        isFetching: true,
+        isLoggingIn: true,
         accessToken: '',
         error: '',
       };
@@ -35,7 +39,7 @@ function loginUser(state = initialLoginUser, action) {
         ...state,
         loggedIn: true,
         username: action.username,
-        isFetching: false,
+        isLoggingIn: false,
         accessToken: action.accessToken,
         error: '',
       };
@@ -44,13 +48,34 @@ function loginUser(state = initialLoginUser, action) {
         ...state,
         loggedIn: false,
         username: action.username,
-        isFetching: false,
+        isLogginIn: false,
         accessToken: '',
         error: action.err,
       };
+    case REFRESH_USER_REQUEST:
+      return {
+        ...state,
+        isRefreshing: true,
+        error: '',
+      };
+    case  REFRESH_USER_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true,
+        isRefreshing: false,
+        username: action.username,
+        accessToken: action.accessToken,
+      };
+    case  REFRESH_USER_FAILURE:
+      return {
+        ...state,
+        isRefreshing: false,
+        isLoggedIn: false,
+        error: action.error,
+      }
     default:
       return state;
   }
 }
 
-export default loginUser;
+export default user;

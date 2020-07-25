@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
 function TracksList() {
   const { isFetching, tracks } = useSelector((state) => state.searchTracks, shallowEqual);
-  const { accessToken } = useSelector((state) => state.loginUser, shallowEqual);
+  const accessToken = useSelector((state) => state.user.accessToken);
   const classes = useStyles();
 
   if (!tracks) {
@@ -33,6 +33,7 @@ function TracksList() {
   }
 
   const handleClick = (id) => {
+    console.log(accessToken);
     const bearer = `Bearer ${accessToken}`;
     const options = {
       method: 'POST',
@@ -40,10 +41,15 @@ function TracksList() {
         Authorization: bearer,
       },
     };
-    console.log(`/spotify/play-track?uri=${encodeURI(id)}`);
     return fetch(`/spotify/play-track?uri=${encodeURI(id)}`, options)
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => {
+        if (!res.ok){
+          throw new Error('something went wrong');
+        }
+        return res.json();
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -55,6 +61,7 @@ function TracksList() {
           className={classes.item}
           onClick={() => handleClick(track.id)}
         >
+          <img src={track.albumArtUrl} alt='Album Art'/>
           {`${track.artists[0]} - ${track.name}`} 
         </ListItem>
       ))}

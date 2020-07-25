@@ -20,7 +20,7 @@ const currentPlayingTrackFailure = () => ({
 export const fetchCurrentPlayingTrack = () => (dispatch, getState) => {
   dispatch(currentPlayingTrackRequest());
 
-  const { accessToken } = getState().loginUser;
+  const { accessToken } = getState().user;
   const bearer = `Bearer ${accessToken}`;
   const options = {
     method: 'GET',
@@ -36,7 +36,7 @@ export const fetchCurrentPlayingTrack = () => (dispatch, getState) => {
 };
 
 export const fetchCurrentPlayingTrackLyrics = () => (dispatch, getState) => {
-  const { accessToken } = getState().loginUser;
+  const { accessToken } = getState().user;
   dispatch(fetchCurrentPlayingTrack(accessToken))
     .then(() => {
       const { trackName } = getState().currentPlayingTrack;
