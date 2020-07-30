@@ -63,8 +63,8 @@ router.post('/new-access-token', async (req, res) => {
 
         const user = await User.findByUsernameAndRefreshToken(username, refresh_token);
 
-        const access_token = await user.generateAccessToken();
-        res.send({ username, access_token });
+        const accessToken = await user.generateAccessToken();
+        res.send({ username, accessToken });
 
     } catch(err) {
         res.status(400).send(err.message);
