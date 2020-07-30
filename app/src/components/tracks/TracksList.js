@@ -33,7 +33,6 @@ function TracksList() {
   }
 
   const handleClick = (id) => {
-    console.log(accessToken);
     const bearer = `Bearer ${accessToken}`;
     const options = {
       method: 'POST',
@@ -52,19 +51,22 @@ function TracksList() {
       .catch((err) => console.log(err));
   };
 
+  const listItems = tracks.map((track, index) => (
+    <ListItem
+      button 
+      key={index}
+      className={classes.item}
+      onClick={() => handleClick(track.id)}
+    >
+      <img src={track.albumArtUrl} alt='Album Art'/>
+      {`--${track.artists[0]} - ${track.name}`} 
+    </ListItem>
+  ));
+
+
   return (
     <List height='400' className={classes.root}>
-      {tracks.map((track, index) => (
-        <ListItem
-          button 
-          key={index}
-          className={classes.item}
-          onClick={() => handleClick(track.id)}
-        >
-          <img src={track.albumArtUrl} alt='Album Art'/>
-          {`${track.artists[0]} - ${track.name}`} 
-        </ListItem>
-      ))}
+      {listItems}
     </List>
   );
 }

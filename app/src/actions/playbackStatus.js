@@ -8,15 +8,15 @@ export const playbackStatusUpdate = (currentTrack, duration, position, paused) =
 });
 
 export const TRANSFER_PLAYBACK_REQUEST = 'TRANSFER_PLAYBACK_REQUEST';
-export const transferPlaybackRequest = (device_id) => ({
+export const transferPlaybackRequest = (deviceId) => ({
   type: TRANSFER_PLAYBACK_REQUEST,
-  device_id,
+  deviceId,
 });
 
 export const TRANSFER_PLAYBACK_SUCCESS = 'TRANSFER_PLAYBACK_SUCCESS';
-export const transferPlaybackSuccess = (device_id) => ({
+export const transferPlaybackSuccess = (deviceId) => ({
   type: TRANSFER_PLAYBACK_SUCCESS,
-  device_id,
+  deviceId,
 });
 
 export const TRANSFER_PLAYBACK_FAILURE = 'TRANSFER_PLAYBACK_FAILURE';
@@ -40,5 +40,6 @@ export const transferPlayback = (device_id) => (dispatch, getState) => {
     if (!res.ok) {
       throw new Error('Unable to transfer playback');
     }
+    dispatch(transferPlaybackSuccess(device_id));
   }).catch((err) => dispatch(transferPlaybackFailure(err)));
 }

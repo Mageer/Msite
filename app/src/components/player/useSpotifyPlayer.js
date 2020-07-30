@@ -10,20 +10,23 @@ function useSpotifyPlayer (token) {
   });
 
   player.on('ready', data => {
-    console.log('Ready with Device ID: ', data.device_id);
     dispatch(transferPlayback(data.device_id));
   });
       
-  player.addListener('player_state_changed', ({
-      paused,
-      position,
-      duration,
-      track_window: { current_track }
-    }) => dispatch(playbackStatusUpdate(current_track, duration, position, paused))
+  player.addListener('player_state_changed', (state) => {
+    if (state) {
+      const {
+        paused,
+        position,
+        duration,
+        track_window: { current_track }
+      } = state;
+      dispatch(playbackStatusUpdate(current_track, duration, position, paused));
+    }
+  }
   );
 
-  player.connect();
-    
+  player.connect();  
   return player;
 }
 

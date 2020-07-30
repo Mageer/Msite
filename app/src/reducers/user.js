@@ -50,7 +50,7 @@ function user(state = initialLoginUser, action) {
         username: action.username,
         isLogginIn: false,
         accessToken: '',
-        error: action.err,
+        error: action.error,
       };
     case REFRESH_USER_REQUEST:
       return {

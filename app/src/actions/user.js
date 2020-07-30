@@ -17,10 +17,10 @@ export const loginUserSuccess = (username, accessToken) => ({
   accessToken,
 });
 
-const loginUserFailure = (username, err) => ({
+const loginUserFailure = (username, error) => ({
   type: LOGIN_USER_FAILURE,
   username,
-  err,
+  error,
 });
 
 const refreshUserRequest = () => ({
@@ -29,10 +29,13 @@ const refreshUserRequest = () => ({
 
 const refreshUserSuccess = (username, accessToken) => ({
   type: REFRESH_USER_SUCCESS,
+  username,
+  accessToken,
 })
 
 const refreshUserFailure = (error) => ({
   type: REFRESH_USER_FAILURE,
+  error,
 })
 
 

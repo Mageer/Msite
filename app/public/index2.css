@@ -1,6 +1,6 @@
 body {
-    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("background.jpg");
-    background-size: 1920px 1080px;
+    /* background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("background.jpg");
+    background-size: 1920px 1080px; */
     background-color: #1e1e1e;
     color: black;
     margin: center;

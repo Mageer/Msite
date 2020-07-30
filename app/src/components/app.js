@@ -5,7 +5,7 @@ import Home from './Home';
 import LoginSpotify from './auth/LoginSpotify';
 import SpotifyCallback from './auth/SpotifyCallback';
 import PageNotFound from './PageNotFound';
-import SpotifyPlayer from './player/SpotifyPlayer';
+import LoadSpotifyPlaybackSDKScript from './player/LoadSpotifyPlaybackSDKScript';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
 
         </Switch>
       </div>
-      <SpotifyPlayer />
+      <LoadSpotifyPlaybackSDKScript />
     </Router>
   );
 }

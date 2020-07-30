@@ -30,8 +30,9 @@ const useStyles = makeStyles({
 });
 
 function LoginUser() {
-  const { loginError, isFetching } = useSelector((state) => state.user, shallowEqual);
   const dispatch = useDispatch();
+
+  const { error: loginError, isFetching } = useSelector((state) => state.user, shallowEqual);
   const { register, handleSubmit } = useForm();
   const classes = useStyles();
 
