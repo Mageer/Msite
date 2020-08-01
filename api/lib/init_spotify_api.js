@@ -1,9 +1,8 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 
-const initSpotifyApi = () => {
+const initSpotifyApi = (redirectUri) => {
     const clientId = process.env.SPOTIFY_CLIENT_ID;
     const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    const redirectUri = 'http://localhost:4000/spotify/callback/';
 
     const spotifyApi = new SpotifyWebApi({
         clientId,

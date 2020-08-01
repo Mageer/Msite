@@ -1,8 +1,8 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const initSpotifyApi = require('../lib/init_spotify_api');
 
-const getSpotify = ((req, res, next) => {
-    const spotifyApi = initSpotifyApi();
+const getSpotify = ({ redirectUri }) => ((req, res, next) => {
+    const spotifyApi = initSpotifyApi(redirectUri);
 
     // TODO: Change if we add other 3rd party support
     if (req.tokens) {
