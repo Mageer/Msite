@@ -26,7 +26,7 @@ function PlayerControls(props) {
       <PreviousButton onClick={() => player.previousTrack()}/>
       <PlayButton resume={() => player.resume()} pause={() => player.pause()} />
       <NextButton onClick={() => player.nextTrack()}/>
-      <VolumeButton mute={() => player.setVolume(0)} unMute={() => player.setVolume(1)}/>
+      <VolumeButton mute={() => player.setVolume(0)} unMute={() => player.setVolume(0.5)}/>
     </Card>
   );
 }

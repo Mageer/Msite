@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { List, ListItem } from '@material-ui/core';
+import { List, ListItem, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
@@ -11,17 +11,26 @@ const useStyles = makeStyles({
   },
   item: {
     '&:hover': {
-      backgroundColor: 'rgb(153, 255, 153, 0.1)',
+      color: 'rgb(153, 255, 153, 0.5)',
     },
     '&:active': {
-      backgroundColor: 'rgb(153, 255, 153, 0.5)',
+      color: 'rgb(153, 255, 153, 0.5)',
     },
+    '&$selected' : {
+      color: 'rgb(100, 255, 100, 0.8)',
+      '&:hover': {
+        color: 'rgb(100, 255, 100, 0.8)',
+      },
+    }
   },
+  selected: {},
 });
 
 function TracksList() {
   const { isFetching, tracks } = useSelector((state) => state.searchTracks, shallowEqual);
   const accessToken = useSelector((state) => state.user.accessToken);
+  const currentTrack = useSelector((state) => state.playbackStatus.currentTrack);
+  const currentTrackId = currentTrack ? currentTrack.id : null;
   const classes = useStyles();
 
   if (!tracks) {
@@ -47,7 +56,6 @@ function TracksList() {
         }
         return res.json();
       })
-      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
@@ -55,7 +63,8 @@ function TracksList() {
     <ListItem
       button 
       key={index}
-      className={classes.item}
+      classes={{root: classes.item, selected: classes.selected}}
+      selected={track.id === currentTrackId}
       onClick={() => handleClick(track.id)}
     >
       <img src={track.albumArtUrl} alt='Album Art'/>

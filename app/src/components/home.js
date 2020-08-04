@@ -57,7 +57,7 @@ function Home() {
             <SearchTracks />
             <div style={{
               width: '100%',
-              height: '750px',
+              height: '650px',
               overflowY: 'scroll',
             }}>
             <Box>

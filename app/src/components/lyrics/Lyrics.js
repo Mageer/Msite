@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     fontSize: 'small',
     height: '450px',
     overflowY: 'auto',
+    overflowX: 'none',
     wordWrap: 'break-word',
   },
 });
@@ -33,13 +34,21 @@ function Lyrics() {
    * Fetches lyrics, chaning isFetching to true, fetches again,
    * isFetching becomes false, rerenders and fetches again, loop.
    */
-  const track = useSelector((state) => state.playbackStatus.currentTrack);
+  const trackEqual = (newTrack, oldTrack) => {
+    if (newTrack && oldTrack) {
+      return newTrack.id === oldTrack.id;
+    }
+    return (!newTrack && !oldTrack);
+  };
+
+  const track = useSelector((state) => state.playbackStatus.currentTrack, trackEqual);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (track) {
-  //     dispatch(fetchLyrics(track.name));
-  //   }
-  // }, [track, dispatch]);
+  useEffect(() => {
+    if (track) {
+      const searchQuery = `${track.name} ${track.artists[0].name}`;
+      dispatch(fetchLyrics(searchQuery));
+    }
+  }, [track, dispatch]);
 
   return (
     <div className={classes.root}>

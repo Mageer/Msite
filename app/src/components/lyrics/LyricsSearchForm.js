@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { fetchLyrics } from '../../actions/lyrics';
 
-function Lyrics() {
+function LyricsSearchForm() {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
   const searchSong = (data) => dispatch(fetchLyrics(data.search));
@@ -26,4 +26,4 @@ function Lyrics() {
   );
 }
 
-export default Lyrics;
+export default LyricsSearchForm;
