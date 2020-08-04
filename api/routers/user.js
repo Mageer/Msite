@@ -2,16 +2,10 @@ const express = require('express');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 const getUser = require('../middleware/get_user');
+const setUserCookies = require('../lib/set_user_cookies');
 
 const router = new express.Router();
 
-const setUserCookies = async (user, res) => {
-    const refresh_token = await user.generateRefreshToken();
-    const username = user.username;
-    const path = '/user/new-access-token';
-    res.cookie('username', username, { path, httpOnly: true })
-    res.cookie('refresh_token', refresh_token, { path, httpOnly: true });
-} 
 
 router.post('/register', async (req, res) => {
     try {
