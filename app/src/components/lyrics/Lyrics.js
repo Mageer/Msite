@@ -30,17 +30,12 @@ function Lyrics() {
   const classes = useStyles();
   const { songName, lyrics, isFetching } = useSelector((state) => state.lyrics, shallowEqual);
   
-  /**
-   * Fetches lyrics, chaning isFetching to true, fetches again,
-   * isFetching becomes false, rerenders and fetches again, loop.
-   */
   const trackEqual = (newTrack, oldTrack) => {
     if (newTrack && oldTrack) {
       return newTrack.id === oldTrack.id;
     }
     return (!newTrack && !oldTrack);
   };
-
   const track = useSelector((state) => state.playbackStatus.currentTrack, trackEqual);
   const dispatch = useDispatch();
   useEffect(() => {
