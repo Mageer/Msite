@@ -20,6 +20,7 @@
     "react-load-script": "0.0.6",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
+    "react-script-hook": "^1.1.1",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.9.0",
     "react-split-pane": "^0.1.91",

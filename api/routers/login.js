@@ -7,7 +7,7 @@ const getSpotifyApi = require('../middleware/get_spotify_api');
 
 router.use(getSpotifyApi({ redirectUri: 'http://localhost:4000/login/spotify-callback/' }));
 
-router.get('/spotify', async (req, res) => {
+router.post('/spotify', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     try {
         const scopes = [
@@ -18,7 +18,7 @@ router.get('/spotify', async (req, res) => {
         ];
     
         const spotifyLoginURL = spotifyApi.createAuthorizeURL(scopes);
-        res.send({url: spotifyLoginURL+'&show_dialog=false'});
+        res.send({url: spotifyLoginURL+'&show_dialog=true'});
     } catch (err) {
         res.status(400).send({ error: err.message });
     }
@@ -61,7 +61,10 @@ router.get('/spotify-callback', async (req, res) => {
 
         await setUserCookies(user, res);
         const userAccessToken = await user.generateAccessToken();
-        res.send({ username, userAccessToken });
+        res.redirect(process.env.CLIENT_BASE_URI 
+            + 'spotify-callback' 
+            + '?' + 'username=' + encodeURI(user.username)
+            + '&' + 'accessToken=' + encodeURI(userAccessToken));
 
     } catch (err) {
         res.status(400).send({ error: err.message });

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginUser from './auth/LoginUser';
+import LoginSpotify from './auth/LoginSpotify';
 import { refreshUser } from '../actions/user';
 
 const useStyles = makeStyles({
@@ -22,7 +22,7 @@ function Welcome() {
   
   useEffect(() => {
     dispatch(refreshUser());
-  })
+  }, [dispatch])
 
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const classes = useStyles();
@@ -34,7 +34,7 @@ function Welcome() {
   return (
     <div className={classes.root}>
       <div className={classes.userLogin}>
-        <LoginUser />
+        <LoginSpotify />
       </div>
     </div>
   );

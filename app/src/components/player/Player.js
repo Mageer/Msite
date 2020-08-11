@@ -11,6 +11,14 @@ function Player() {
 
   const player = useSpotifyPlayer(spotifyAccessToken);
 
+  if (!player) {
+    return (
+      <div>
+        Please wait
+      </div>
+    );
+  }
+
   return(
     <PlayerControls player={player}/>
   );

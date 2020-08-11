@@ -5,7 +5,7 @@ import Home from './Home';
 import LoginSpotify from './auth/LoginSpotify';
 import SpotifyCallback from './auth/SpotifyCallback';
 import PageNotFound from './PageNotFound';
-import LoadSpotifyPlaybackSDKScript from './player/LoadSpotifyPlaybackSDKScript';
+import LoadingScreen from './LoadingScreen';
 
 function App() {
   return (
@@ -25,6 +25,10 @@ function App() {
             <SpotifyCallback />
           </Route>
 
+          <Route path="/loading-screen">
+            <LoadingScreen />
+          </Route>
+
           <Route exact path="/">
             <Welcome />
           </Route>
@@ -35,7 +39,6 @@ function App() {
 
         </Switch>
       </div>
-      <LoadSpotifyPlaybackSDKScript />
     </Router>
   );
 }

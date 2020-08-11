@@ -26,16 +26,22 @@ const useStyles = makeStyles({
   },
 });
 
+const trackEqual = (newTrack, oldTrack) => {
+  if (newTrack && oldTrack) {
+    return newTrack.id === oldTrack.id;
+  }
+  return (!newTrack && !oldTrack);
+};
+
 function Lyrics() {
   const classes = useStyles();
   const { songName, lyrics, isFetching } = useSelector((state) => state.lyrics, shallowEqual);
-  
-  const trackEqual = (newTrack, oldTrack) => {
-    if (newTrack && oldTrack) {
-      return newTrack.id === oldTrack.id;
-    }
-    return (!newTrack && !oldTrack);
-  };
+
+  /**
+   * FIX:
+   * useEffect runs even when track doesn't change because it doesn't understand
+   * that things haven't changed on rerender.
+   */
   const track = useSelector((state) => state.playbackStatus.currentTrack, trackEqual);
   const dispatch = useDispatch();
   useEffect(() => {

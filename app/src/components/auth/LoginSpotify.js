@@ -1,31 +1,26 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import SpotifyLogo from '../../media/spotify_logo.png'; 
 
 function LoginSpotify() {
-  const accessToken = useSelector((state) => state.user.accessToken);
-
   const login = () => {
-    const bearer = `Bearer ${accessToken}`;
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: bearer,
-      },
-    };
-
-    return fetch('/spotify/login', options)
-      .then((res) => res.json())
+    return fetch('/login/spotify', { method: 'POST' })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Login failed');
+      })
       .then((body) => window.location.assign(body.url))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div>
+    <div style={{ color: 'white' }}>
       <h3>
-        Connect account to Spotify
+        Login with Spotify
       </h3>
-      <button onClick={login}>
-        login
+      <button>
+        <img src={SpotifyLogo} alt="my img" onClick={login} />
       </button>
     </div>
   );
