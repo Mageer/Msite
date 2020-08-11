@@ -55,12 +55,14 @@ geniusApi.prototype = {
      * different html source codes. This parses the more complicated
      * lyrics source code.
      * 
+     * NOTE: the div tag changed after two months, keep an eye on this.
+     * 
      * @param {String} $ loaded body through cheerio
      * @return {String}     the lyrics
      * @private
      */
     parseOtherSourceCode: ($) => {
-        const div = ".SongPageGrid-sc-1vi6xda-0.DGVcp.Lyrics__Root-sc-1ynbvzw-0.jvlKWy";
+        const div = ".SongPageGrid-sc-1vi6xda-0.DGVcp.Lyrics__Root-sc-1ynbvzw-0.kkHBOZ";
     
         // Magic
         const str = $(div).html();
