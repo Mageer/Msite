@@ -1,39 +1,33 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { Button, TextField, Card } from '@material-ui/core';
+import { Input, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
 import { fetchTracks } from '../../actions/searchTracks';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: theme.palette.text.secondary,
+  },
+}))
 
 function SearchTracks() {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { register, handleSubmit } = useForm();
 
   const getTracks = (data) => dispatch(fetchTracks(data.search));
 
   return (
-    <div>
-    <Card>
+    <div  style={{ padding: '10px' }}>
       <form onSubmit={handleSubmit(getTracks)}>
-        <TextField
-          variant="outlined"
-          margin="normal"
+        <Input
           inputRef={register}
-          required
-          id="search"
-          label="Search"
           name="search"
+          placeholder="Search music"
           autoComplete='off'
         />
-        <Button
-        style={{ margin: 'bottom' }}
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Search
-        </Button>
       </form>
-      </Card>
     </div>
   );
 }

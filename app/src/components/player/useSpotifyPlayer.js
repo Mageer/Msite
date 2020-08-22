@@ -22,7 +22,7 @@ function initSpotify (token, dispatch) {
       dispatch(playbackStatusUpdate(current_track, duration, position, paused));
     }
   });
-  player.connect();  
+  player.connect()  
   return player;
 }
 

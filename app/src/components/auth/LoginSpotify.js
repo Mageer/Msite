@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 import SpotifyLogo from '../../media/spotify_logo.png'; 
 
 function LoginSpotify() {
@@ -15,14 +16,33 @@ function LoginSpotify() {
   };
 
   return (
-    <div style={{ color: 'white' }}>
-      <h3>
-        Login with Spotify
-      </h3>
+    <Grid container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >   
+    <Grid item>
+      <div style={{ color: 'white' }}>
+        <h3>
+          Login with Spotify
+        </h3>
+      </div>
+    </Grid>
+
+    <Grid item>
       <button>
-        <img src={SpotifyLogo} alt="my img" onClick={login} />
+        <img 
+          src={SpotifyLogo} 
+          alt="my img" 
+          onClick={login} 
+          style={{
+            width: '256px', 
+            height: '256px',
+          }}
+        />
       </button>
-    </div>
+    </Grid>
+    </Grid>
   );
 }
 

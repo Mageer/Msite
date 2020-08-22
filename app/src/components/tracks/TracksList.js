@@ -1,15 +1,18 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { List, ListItem } from '@material-ui/core';
+import { Grid, List, ListItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import prettyMilliseconds from 'pretty-ms';
 
 const useStyles = makeStyles({
   root: {
-    color: 'white',
+    color: '#D8D8D8',
     fontFamily: "Consolas, 'Courier New', monospace",
   },
   item: {
+    fontFamily: "Consolas, 'Courier New', monospace",
+    fontSize: 'small',
     '&:hover': {
       color: 'rgb(153, 255, 153, 0.5)',
     },
@@ -24,6 +27,10 @@ const useStyles = makeStyles({
     }
   },
   selected: {},
+  albumArt: {
+    height: '32px',
+    width: '32px',
+  }
 });
 
 function TracksList() {
@@ -67,14 +74,30 @@ function TracksList() {
       selected={track.id === currentTrackId}
       onClick={() => handleClick(track.id)}
     >
-      <img src={track.albumArtUrl} alt='Album Art'/>
-      {`--${track.artists[0]} - ${track.name}`} 
+      <Grid container>
+        <Grid item xs={1}>
+          <img src={track.albumArtUrl} alt='Album Art' className={classes.albumArt}/>
+        </Grid>
+        <Grid item xs={5}>
+          {track.name}
+        </Grid>
+        <Grid item xs={4}>
+          {track.artists[0]}
+        </Grid>
+        <Grid item xs={2}>
+          {prettyMilliseconds(track.duration, {
+            secondsDecimalDigits: 0,
+            colonNotation: true,
+            })
+          }
+        </Grid>
+      </Grid>
     </ListItem>
   ));
 
 
   return (
-    <List height='400' className={classes.root}>
+    <List height='590' className={classes.root}>
       {listItems}
     </List>
   );

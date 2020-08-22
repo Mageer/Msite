@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginSpotify from './auth/LoginSpotify';
 import { refreshUser } from '../actions/user';
@@ -11,9 +12,7 @@ const useStyles = makeStyles({
   },
   userLogin: {
     margin: 'auto',
-    padding: '15px',
-    paddingTop: '100px',
-    top: '50%',
+    paddingTop: '20vh',
   },
 });
 
@@ -27,16 +26,22 @@ function Welcome() {
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const classes = useStyles();
 
+  // TODO: FOR TESTING
   if (loggedIn) {
     return <Redirect to="/home" />;
   }
 
   return (
-    <div className={classes.root}>
-      <div className={classes.userLogin}>
+    <Grid container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      flex-start="center"
+    >
+      <Grid item>
         <LoginSpotify />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
 

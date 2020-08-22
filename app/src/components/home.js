@@ -1,41 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Box } from '@material-ui/core';
+import { Grid, Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import SplitPane from 'react-split-pane';
 import Lyrics from './lyrics/Lyrics';
 import SearchTracks from './tracks/SearchTracks';
+import SearchLyrics from './lyrics/SearchLyrics';
 import TracksList from './tracks/TracksList';
-import TrackInformation from './tracks/TrackInformation';
-import Player from './player/Player';
+import CurrentPlayingTrackAlbumArt from './tracks/CurrentPlayingTrackAlbumArt.js';
+import BottomPanel from './BottomPanel';
 import useNewAccessToken from './auth/useNewAccessToken';
 
 const useStyles = makeStyles({
-  root: {
-    position: 'relative',
-    height: '95vh',
-  },
-  leftPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    margin: '10px',
-    padding: '15px',
-    marginRight: '5px',
-    wordWrap: 'break-word',
-  },
-  rightPane: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    margin: '10px',
-    padding: '15px',
-    marginLeft: '5px',
-    height: '95%',
-    wordWrap: 'break-word',
-  },
   inner: {
-    display: 'table',
-    margin: '10px auto',
-    overflowY: 'scroll',
-    width: '95%',
   },
 });
 
@@ -49,37 +26,56 @@ function Home() {
   }
 
   return (
-    <div className={classes.root}>
-      <SplitPane split="vertical" defaultSize="70%" className={classes.root}>
+    <Grid container
+      direction="row"
+      justify="center"
+      alignItems="flex-start"
+      flex-start="center"
+      spacing={1}
+      height={100}
+    >
 
-        <div className={classes.leftPane}>
-          <div className={classes.inner}>
-            <SearchTracks />
-            <div style={{
-              width: '100%',
-              height: '650px',
-              overflowY: 'scroll',
-            }}>
-            <Box>
-              <TracksList />
-            </Box>
+      <Grid item xs={2}>
+        <Paper style={{ height: '652px'}} elevation={2} square>
+          <CurrentPlayingTrackAlbumArt />
+        </Paper>
+      </Grid>
+
+      <Grid item xs={10}>
+        <Grid container spacing={1}>
+          
+          <Grid item xs={8}>
+          <Box boxShadow={2}>
+            <Paper square>
+              <SearchTracks />
+            </Paper>
+            <div style={{ height: '580px', backgroundColor: '#2A2A2A', padding: '10px',}}>
+              <Box style={{ height: '100%', overflowY: 'auto'}}>
+                <TracksList />
+              </Box>
             </div>
-          <div>
-            <TrackInformation />
-            <Player />
-          </div>
+          </Box>
+          </Grid>
 
-          </div>
-        </div>
+          <Grid item xs={4}>
+          <Box boxShadow={2}>
+            <Paper square>
+              <SearchLyrics />
+            </Paper>
+            <Box style={{ backgroundColor: '#323232' }}>
+              <Lyrics />
+            </Box>
+          </Box>
+          </Grid>
 
-        <div className={classes.rightPane}>
-          <div className={classes.inner}>
-            <Lyrics />
-          </div>
-        </div>
+        </Grid>
+      </Grid>
 
-      </SplitPane>
-    </div>
+      
+      <Grid item xs={12}>
+        <BottomPanel />
+      </Grid>
+    </Grid>
   );
 }
 
