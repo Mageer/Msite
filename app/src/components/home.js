@@ -1,18 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Grid, Box, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Lyrics from './lyrics/Lyrics';
-import SearchTracks from './tracks/SearchTracks';
-import SearchLyrics from './lyrics/SearchLyrics';
-import TracksList from './tracks/TracksList';
-import CurrentPlayingTrackAlbumArt from './tracks/CurrentPlayingTrackAlbumArt.js';
+import LeftPanel from './LeftPanel';
+import MiddlePanel from './MiddlePanel';
+import RightPanel from './RightPanel';
 import BottomPanel from './BottomPanel';
 import useNewAccessToken from './auth/useNewAccessToken';
 
 const useStyles = makeStyles({
-  inner: {
+  root: {
+    height: '100%',
+  },
+  topPanel: {
+    height: 'calc(100% - 89px)',
+    marginBottom: '5px',
+  },
+  topPanelItem: {
+    height: '100%'
   },
 });
 
@@ -26,56 +32,25 @@ function Home() {
   }
 
   return (
-    <Grid container
-      direction="row"
-      justify="center"
-      alignItems="flex-start"
-      flex-start="center"
-      spacing={1}
-      height={100}
-    >
-
-      <Grid item xs={2}>
-        <Paper style={{ height: '652px'}} elevation={2} square>
-          <CurrentPlayingTrackAlbumArt />
-        </Paper>
-      </Grid>
-
-      <Grid item xs={10}>
-        <Grid container spacing={1}>
-          
-          <Grid item xs={8}>
-          <Box boxShadow={2}>
-            <Paper square>
-              <SearchTracks />
-            </Paper>
-            <div style={{ height: '580px', backgroundColor: '#2A2A2A', padding: '10px',}}>
-              <Box style={{ height: '100%', overflowY: 'auto'}}>
-                <TracksList />
-              </Box>
-            </div>
-          </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-          <Box boxShadow={2}>
-            <Paper square>
-              <SearchLyrics />
-            </Paper>
-            <Box style={{ backgroundColor: '#323232' }}>
-              <Lyrics />
-            </Box>
-          </Box>
-          </Grid>
-
+    <div className={classes.root}>
+      <div className={classes.topPanel}>
+        <Grid container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+          flex-start="center"
+          spacing={1}
+          className={classes.topPanelItem}
+        >
+          <Grid item xs={2} className={classes.topPanelItem}><LeftPanel /></Grid>
+          <Grid item xs={7} className={classes.topPanelItem}><MiddlePanel /></Grid>
+          <Grid item xs={3} className={classes.topPanelItem}><RightPanel /></Grid>
         </Grid>
-      </Grid>
-
-      
-      <Grid item xs={12}>
-        <BottomPanel />
-      </Grid>
-    </Grid>
+      </div>
+      <div>
+        <BottomPanel /> {/*height of element is 88px */}
+      </div>
+    </div>
   );
 }
 

@@ -22,7 +22,7 @@ const store = configureStore();
 render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-    <div style={{ height: '100%', position: 'absolute', left: '0px', width: '100%', overflow: 'hidden'}}>
+    <div style={{ height: '100%', position: 'absolute', left: '0px', width: '100%', overflow: 'hidden', }}>
        <App />
     </div>
     </ThemeProvider>

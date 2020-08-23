@@ -10,7 +10,7 @@ import LoadingScreen from './LoadingScreen';
 function App() {
   return (
     <Router>
-      <div className='Routes'>
+      <div className='Routes' style={{ height: '100%' }}>
         <Switch>
 
           <Route path="/home">

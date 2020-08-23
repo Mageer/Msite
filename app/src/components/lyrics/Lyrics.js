@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
     color: '#D8D8D8',
     wordWrap: 'break-word',
-    height: '600px',
+    height: '100%',
     overflowY: 'auto',
   },
 });

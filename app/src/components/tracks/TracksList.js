@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   root: {
     color: '#D8D8D8',
     fontFamily: "Consolas, 'Courier New', monospace",
+    height: '100%'
   },
   item: {
     fontFamily: "Consolas, 'Courier New', monospace",
@@ -97,7 +98,7 @@ function TracksList() {
 
 
   return (
-    <List height='590' className={classes.root}>
+    <List className={classes.root}>
       {listItems}
     </List>
   );
