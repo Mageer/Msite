@@ -12,14 +12,20 @@ import useNewAccessToken from './auth/useNewAccessToken';
 const useStyles = makeStyles({
   root: {
     height: '100%',
+    paddingBottom: '50px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   topPanel: {
-    height: 'calc(100% - 89px)',
-    marginBottom: '5px',
+    flex: '1',
+    minHeight: '0',
   },
   topPanelItem: {
     height: '100%'
   },
+  bottomPanel: {
+    flex: 'none',
+  }
 });
 
 function Home() {
@@ -47,8 +53,8 @@ function Home() {
           <Grid item xs={3} className={classes.topPanelItem}><RightPanel /></Grid>
         </Grid>
       </div>
-      <div>
-        <BottomPanel /> {/*height of element is 88px */}
+      <div className={classes.bottomPanel}>
+        <BottomPanel />
       </div>
     </div>
   );

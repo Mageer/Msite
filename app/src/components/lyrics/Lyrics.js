@@ -11,7 +11,6 @@ const useStyles = makeStyles({
     color: '#D8D8D8',
     wordWrap: 'break-word',
     height: '100%',
-    overflowY: 'auto',
   },
 });
 
