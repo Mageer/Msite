@@ -45,7 +45,7 @@ function Home() {
           justify="center"
           alignItems="flex-start"
           flex-start="center"
-          spacing={1}
+          spacing={0}
           className={classes.topPanelItem}
         >
           <Grid item xs={2} className={classes.topPanelItem}><LeftPanel /></Grid>

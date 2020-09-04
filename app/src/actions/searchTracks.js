@@ -16,8 +16,8 @@ const searchTracksFailure = (searchQuery, error) => ({
   error,
 });
 
-export const fetchTracks = (searchQuery) => (dispatch, getState) => {
-  dispatch(searchTracksRequest(searchQuery));
+export const fetchTracks = ({search, limit, offset}) => (dispatch, getState) => {
+  dispatch(searchTracksRequest(search));
 
   const { accessToken } = getState().user;
   const bearer = `Bearer ${accessToken}`;
@@ -27,7 +27,7 @@ export const fetchTracks = (searchQuery) => (dispatch, getState) => {
       Authorization: bearer,
     },
   };
-  return fetch(`/spotify/tracks?search=${encodeURI(searchQuery)}`, options)
+  return fetch(`/spotify/tracks?search=${encodeURI(search)}&limit=${encodeURI(limit)}&offset=${encodeURI(offset)}`, options)
     .then((res) => {
       if (!res.ok) {
         throw new Error('No match');

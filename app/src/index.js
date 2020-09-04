@@ -3,18 +3,22 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import lime from '@material-ui/core/colors/lime';
+import blue from '@material-ui/core/colors/blue';
 import App from './components/App';
 import configureStore from './configure_store';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: lime[500],
+      main: blue[800],
+    },
+    background: {
+      paper: {
+        dark: 'black',
+      },
     },
     type: 'dark',
   },
-  color: 'white',
 });
 
 const store = configureStore();

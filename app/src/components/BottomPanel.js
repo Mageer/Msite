@@ -26,7 +26,7 @@ function BottomPanel() {
   const spotifyAccessToken = decodedJwt.tokens.spotify;
 
   const player = useSpotifyPlayer(spotifyAccessToken);
-
+  console.log('Bottom rendered');
   if (!player) {
     return(<div></div>);
   }

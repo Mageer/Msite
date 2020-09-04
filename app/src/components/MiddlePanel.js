@@ -1,7 +1,10 @@
 import React from 'react';
+import { useRouteMatch, Route, useLocation } from "react-router-dom";
+import qs from 'query-string';
 import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import SearchTracks from './tracks/SearchTracks';
+import InfiniteList from './tracks/InfiniteList';
 import TracksList from './tracks/TracksList';
 
 const useStyles = makeStyles({
@@ -15,20 +18,34 @@ const useStyles = makeStyles({
   tracksList: {
     flex: '1',
     overflowY: 'auto', 
-    backgroundColor: '#2A2A2A', 
-    padding: '10px',
+    backgroundColor: '#2A2A2A',
+    color: '#F7F7F7',
+    padding: '0px',
   },
 });
 
 function MiddlePanel() {
   const classes = useStyles();
+  const { path } = useRouteMatch();
+  const location = useLocation();
+  const params = qs.parse(location.search);
+
   return(
-    <Box boxShadow={2} className={classes.root}>
+    <Box boxShadow={0} className={classes.root}>
       <Paper square>
         <SearchTracks />
       </Paper>
       <div className={classes.tracksList}>
-        <TracksList />
+        <Route 
+          path={path + "/saved-tracks"} 
+          component={() => 
+            <InfiniteList baseApiPathname={`/spotify/user-saved-tracks?`} />}
+        />
+        <Route 
+          path={path + "/search"} 
+          component={() => 
+            <InfiniteList baseApiPathname={`/spotify/tracks?search=${params.track}`} />} 
+        />
       </div>
     </Box>
   );

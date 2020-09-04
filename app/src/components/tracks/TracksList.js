@@ -1,37 +1,30 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { Grid, List, ListItem } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  List,
+  ListItem,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import lime from '@material-ui/core/colors/lime';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import prettyMilliseconds from 'pretty-ms';
+import TrackListItem from './TrackListItem';
 
 const useStyles = makeStyles({
   root: {
     color: '#D8D8D8',
-    fontFamily: "Consolas, 'Courier New', monospace",
     height: '100%'
   },
   item: {
-    fontFamily: "Consolas, 'Courier New', monospace",
-    fontSize: 'small',
     '&:hover': {
-      color: 'rgb(153, 255, 153, 0.5)',
-    },
-    '&:active': {
-      color: 'rgb(153, 255, 153, 0.5)',
+      color: lime[800],
     },
     '&$selected' : {
-      color: 'rgb(100, 255, 100, 0.8)',
-      '&:hover': {
-        color: 'rgb(100, 255, 100, 0.8)',
-      },
-    }
+      color: lime[500],
+    },
   },
   selected: {},
-  albumArt: {
-    height: '32px',
-    width: '32px',
-  }
 });
 
 function TracksList() {
@@ -71,28 +64,16 @@ function TracksList() {
     <ListItem
       button 
       key={index}
-      classes={{root: classes.item, selected: classes.selected}}
+      classes={{ root: classes.item, selected: classes.selected }}
       selected={track.id === currentTrackId}
       onClick={() => handleClick(track.id)}
     >
-      <Grid container>
-        <Grid item xs={1}>
-          <img src={track.albumArtUrl} alt='Album Art' className={classes.albumArt}/>
-        </Grid>
-        <Grid item xs={5}>
-          {track.name}
-        </Grid>
-        <Grid item xs={4}>
-          {track.artists[0]}
-        </Grid>
-        <Grid item xs={2}>
-          {prettyMilliseconds(track.duration, {
-            secondsDecimalDigits: 0,
-            colonNotation: true,
-            })
-          }
-        </Grid>
-      </Grid>
+      <TrackListItem
+        albumArtUrl={track.albumArtUrl}
+        name={track.name}
+        artists={track.artists[0]}
+        duration={track.duration}
+      />
     </ListItem>
   ));
 

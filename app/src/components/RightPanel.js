@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 function RightPanel() {
   const classes = useStyles();
   return(
-    <Box boxShadow={2} className={classes.root}>
+    <Box boxShadow={0} className={classes.root}>
       <Paper square className={classes.searchBar}>
         <SearchLyrics />
       </Paper>

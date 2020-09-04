@@ -2,6 +2,7 @@ import React from 'react';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import CurrentPlayingTrackAlbumArt from './tracks/CurrentPlayingTrackAlbumArt';
+import UserPlaylists from './UserPlaylists';
 
 const useStyles = makeStyles({
   root: {
@@ -19,13 +20,14 @@ const useStyles = makeStyles({
 
 function LeftPanel() {
   const classes = useStyles();
+
   return(
-    <Paper elevation={2} square className={classes.root}>
+    <Paper elevation={0} square className={classes.root}>
       <div>
         <CurrentPlayingTrackAlbumArt />
       </div>
       <div className={classes.playlists}>
-        My Library
+        <UserPlaylists />
       </div>
 
     </Paper>
