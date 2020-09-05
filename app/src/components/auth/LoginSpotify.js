@@ -1,8 +1,26 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
-import SpotifyLogo from '../../media/spotify_logo.png'; 
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import SpotifyLogo from '../../media/spotify_logo.png';
+import SpotifyLogoHover from '../../media/spotify_logo_hover.png';
+import SpotifyLogoActive from '../../media/spotify_logo_active.png';
+
+const useStyles = makeStyles({
+  spotifyLogin: {
+    width: '250px', 
+    height: '250px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+    '&:active': {
+      cursor: 'pointer',
+    },
+  },
+});
 
 function LoginSpotify() {
+  const classes = useStyles();
+  const [imgSrc, setImgSrc] = useState(SpotifyLogo);
+
   const login = () => {
     return fetch('/login/spotify', { method: 'POST' })
       .then((res) => {
@@ -16,33 +34,19 @@ function LoginSpotify() {
   };
 
   return (
-    <Grid container
-      direction="column"
-      justify="center"
-      alignItems="center"
-    >   
-    <Grid item>
-      <div style={{ color: 'white' }}>
-        <h3>
-          Login with Spotify
-        </h3>
-      </div>
-    </Grid>
-
-    <Grid item>
-      <button>
-        <img 
-          src={SpotifyLogo} 
+    <div>
+      <img 
+          src={imgSrc} 
           alt="my img" 
-          onClick={login} 
-          style={{
-            width: '256px', 
-            height: '256px',
-          }}
-        />
-      </button>
-    </Grid>
-    </Grid>
+          onClick={login}
+          onMouseOver={() => setImgSrc(SpotifyLogoHover)}
+          onMouseOut={() => setImgSrc(SpotifyLogo)}
+          onMouseDown={() => setImgSrc(SpotifyLogoActive)}
+          onMouseUp={() => setImgSrc(SpotifyLogoHover)}
+          className={classes.spotifyLogin}
+      />
+    </div>
+
   );
 }
 
