@@ -94,31 +94,51 @@ router.get('/current-playing-track', async (req, res) => {
     }
 });
 
+const tracksInfo = (tracks) => tracks.map((track) => ({
+    artists: track.artists.map((artist) => artist.name),
+    name: track.name,
+    id: track.id,
+    duration: track.duration_ms,
+    albumArtUrl: track.album.images[2].url,
+}));
 
 router.get('/tracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
+    const { search, limit, offset } = req.query;
+    console.log(search, limit, offset)
     try {
-        const searchQuery = req.query.search;
-        const searchResponse = await spotifyApi.searchTracks(searchQuery, {limit:10});
-        const tracks = searchResponse.body.tracks.items;
-      
-        if (!tracks[0]){
-            return res.status(404).send({ error: 'No match' });
-        }
-        
-        const tracksInfo = tracks.map((track) => ({
-            artists: track.artists.map((artist) => artist.name),
-            name: track.name,
-            id: track.id,
-            albumArtUrl: track.album.images[2].url,
-        }));
-
-        res.status(200).send(tracksInfo);
+        const { body: searchResults } = await spotifyApi.searchTracks(search, {limit, offset});
+        const tracks = searchResults.tracks.items;
+        res.status(200).send(tracksInfo(tracks));
 
     } catch (err) {
         console.log(err);
         res.status(400).send({ error: err.message });
     } 
+});
+
+
+router.get('/user-playlists', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    try {
+        const { body } = await spotifyApi.getUserPlaylists();
+        const playlists = body.items;
+        res.send(playlists);
+    } catch (err) {
+        res.status(400).send({ error: err.msg});
+    }
+});
+
+router.get('/user-saved-tracks', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    const { limit, offset } = req.query;
+    try {
+        const { body: savedTracks } = await spotifyApi.getMySavedTracks({ limit, offset });
+        const tracks = savedTracks.items.map((track) => track.track);
+        res.send(tracksInfo(tracks));
+    } catch (err) {
+        res.status(400).send({ error: err.msg});
+    }
 });
 
 

@@ -12,7 +12,8 @@ router.post('/spotify', async (req, res) => {
     try {
         const scopes = [
             "streaming", 
-            "user-read-email", 
+            "user-read-email",
+            "user-library-read", 
             "user-read-private", 
             "user-read-currently-playing"
         ];
