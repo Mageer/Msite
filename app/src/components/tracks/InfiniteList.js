@@ -5,9 +5,14 @@ import { makeStyles } from '@material-ui/styles';
 import blue from '@material-ui/core/colors/blue';
 import InfiniteScroll from 'react-infinite-scroller';
 import TrackListItem from './TrackListItem';
+import '../../scrollbar.css';
 
 const useStyles = makeStyles({
   root: {
+    height: '100%', 
+    overflow: 'auto',
+  },
+  list: {
     color: '#D8D8D8',
     backgroundColor: '#151515',
     height: '100%',
@@ -102,7 +107,7 @@ function InfiniteList(props) {
   ));
   
   return(
-    <div style={{height: '100%', overflow: 'auto'}}>
+    <div className={classes.root} id='scrollbar'>
     <InfiniteScroll
       pageStart={0}
       loadMore={loadFunc}
@@ -110,7 +115,7 @@ function InfiniteList(props) {
       loader={<div className="loader" key={0}>Loading ...</div>}
       useWindow={false}
     >
-      <List className={classes.root}>
+      <List className={classes.list}>
         {listItems}
       </List>
 

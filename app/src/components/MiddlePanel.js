@@ -5,7 +5,6 @@ import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import SearchTracks from './tracks/SearchTracks';
 import InfiniteList from './tracks/InfiniteList';
-import TracksList from './tracks/TracksList';
 
 const useStyles = makeStyles({
   root: {

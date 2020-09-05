@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import qs from 'query-string';
-import { fetchTracks } from '../../actions/searchTracks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
