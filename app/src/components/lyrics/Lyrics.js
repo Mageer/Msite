@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Paper, Typography } from '@material-ui/core';
-import ScaleLoader from 'react-spinners/ScaleLoader';
+import { Box } from '@material-ui/core';
 import { fetchLyrics } from '../../actions/lyrics';
+import LyricsText from './LyricsText';
+import '../../scrollbar.css';
 
 const useStyles = makeStyles({
   root: {
@@ -11,6 +12,10 @@ const useStyles = makeStyles({
     color: '#D8D8D8',
     wordWrap: 'break-word',
     height: '100%',
+    margin: '10px',
+  },
+  lyrics: {
+    whiteSpace: 'pre-wrap',
   },
 });
 
@@ -23,13 +28,7 @@ const trackEqual = (newTrack, oldTrack) => {
 
 function Lyrics() {
   const classes = useStyles();
-  const { songName, lyrics, isFetching } = useSelector((state) => state.lyrics, shallowEqual);
 
-  /**
-   * FIX:
-   * useEffect runs even when track doesn't change because it doesn't understand
-   * that things haven't changed on rerender.
-   */
   const track = useSelector((state) => state.playbackStatus.currentTrack, trackEqual);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,14 +39,9 @@ function Lyrics() {
   }, [track, dispatch]);
 
   return (
-    <Box className={classes.root}>
-        <ScaleLoader size={50} color={'#99ff99'} loading={isFetching} />
-        <Typography variant="body2">
-          <span style={{ whiteSpace: 'pre-wrap' }}>
-            {lyrics}
-          </span>
-        </Typography>
-    </Box>
+    <div className={classes.root}>
+      <LyricsText />
+    </div>
   );
 }
 

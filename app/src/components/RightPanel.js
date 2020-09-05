@@ -3,6 +3,7 @@ import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import SearchLyrics from './lyrics/SearchLyrics';
 import Lyrics from './lyrics/Lyrics';
+import '../scrollbar.css';
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,7 @@ function RightPanel() {
       <Paper square className={classes.searchBar}>
         <SearchLyrics />
       </Paper>
-      <div className={classes.lyrics}>
+      <div className={classes.lyrics} id='scrollbar'>
         <Lyrics />
       </div>
     </Box>
