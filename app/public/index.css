@@ -1,44 +1,6 @@
 body {
-    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("background.jpg");
-    background-size: 1920px 1080px;
     background-color: #1e1e1e;
     color: black;
-    margin: center;
+    margin: 0;
+    padding: 0;
 }
-
-#root {
-    margin: auto;
-    text-align: center;
-}
-
-#lyrics {
-    display: flex;
-    margin: auto;
-    margin-top: 5%;
-    width: 60%;
-    height: 400px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    overflow-y: auto;
-    word-wrap: break-word;
-    padding: 15px;
-  }
-
-
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-  
-::-webkit-scrollbar-track {
-    background: #2c2c2c;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-  
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-  
