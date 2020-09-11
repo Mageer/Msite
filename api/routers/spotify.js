@@ -105,7 +105,6 @@ const tracksInfo = (tracks) => tracks.map((track) => ({
 router.get('/tracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     const { search, limit, offset } = req.query;
-    console.log(search, limit, offset)
     try {
         const { body: searchResults } = await spotifyApi.searchTracks(search, {limit, offset});
         const tracks = searchResults.tracks.items;
@@ -122,7 +121,10 @@ router.get('/user-playlists', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     try {
         const { body } = await spotifyApi.getUserPlaylists();
-        const playlists = body.items;
+        const playlists = body.items.map((playlist) => ({
+            id: playlist.id,
+            name: playlist.name,
+        }));
         res.send(playlists);
     } catch (err) {
         res.status(400).send({ error: err.msg});
@@ -144,12 +146,35 @@ router.get('/user-saved-tracks', async (req, res) => {
 
 router.post('/play-track', async (req, res) => {
     const spotifyApi = req.spotifyApi;
+    const trackUri = req.query.uri;
     try {
-        const trackURI = req.query.uri;
-        spotifyApi.play({uris: [`spotify:track:${trackURI}`]})
+        spotifyApi.play({ uris: [`spotify:track:${trackUri}`] });
         res.send({});
     } catch(err) {
-        res.status(400).send({ error: err.msg})
+        res.status(400).send({ error: err.msg});
+    }
+});
+
+router.post('/play-playlist', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    const { uri, offset } = req.query;
+    try {
+        spotifyApi.play({ context_uri: `spotify:playlist:${uri}`, offset: {"position": offset} });
+        res.send({});
+    } catch(err) {
+        res.status(400).send({ error: err.msg });
+    }
+});
+
+router.get('/playlist', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    const { uri, limit, offset } = req.query;
+    try {
+        const { body: playlistTracks } = await spotifyApi.getPlaylistTracks(uri, { limit, offset });
+        const tracks = playlistTracks.items.map((track) => track.track);
+        res.send(tracksInfo(tracks));   
+    } catch(err) {
+        res.status(400).send({ error: err.msg });
     }
 })
 

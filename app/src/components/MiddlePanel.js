@@ -38,7 +38,12 @@ function MiddlePanel() {
         <Route 
           path={path + "/saved-tracks"} 
           component={() => 
-            <InfiniteList baseApiPathname={`/spotify/user-saved-tracks?`} />}
+            <InfiniteList baseApiPathname={`/spotify/user-saved-tracks?`} playlist/>}
+        />
+        <Route 
+          path={path + "/playlist"} 
+          component={() => 
+            <InfiniteList baseApiPathname={`/spotify/playlist?uri=${params.list}`} playlist={params.list}/>}
         />
         <Route 
           path={path + "/search"} 

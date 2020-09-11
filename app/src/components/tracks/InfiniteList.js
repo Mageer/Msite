@@ -47,7 +47,7 @@ const fetchMoreTracks = (accessToken, baseApiPathname, limit, offset) => {
 }
 
 function InfiniteList(props) {
-  const { baseApiPathname } = props;
+  const { baseApiPathname, playlist } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
   const accessToken = useSelector((state) => state.user.accessToken);
@@ -58,7 +58,7 @@ function InfiniteList(props) {
   const [offset, setOffset] = useState(0);
   const limit = 50;
 
-  const handleClick = (id) => {
+  const handleClick = (id, key) => {
     const bearer = `Bearer ${accessToken}`;
     const options = {
       method: 'POST',
@@ -66,7 +66,13 @@ function InfiniteList(props) {
         Authorization: bearer,
       },
     };
-    return fetch(`/spotify/play-track?uri=${encodeURI(id)}`, options)
+
+    let url = `/spotify/play-track?uri=${encodeURI(id)}`;
+    if (playlist) {
+      url = `/spotify/play-playlist?uri=${encodeURI(playlist)}&offset=${encodeURI(key)}`;
+    }
+
+    return fetch(url, options)
       .then((res) => {
         if (!res.ok){
           throw new Error('something went wrong');
@@ -95,7 +101,7 @@ function InfiniteList(props) {
       key={index}
       classes={{ root: classes.item, selected: classes.selected }}
       selected={track.id === currentTrackId}
-      onClick={() => handleClick(track.id)}
+      onClick={() => handleClick(track.id, index)}
     >
       <TrackListItem
         albumArtUrl={track.albumArtUrl}

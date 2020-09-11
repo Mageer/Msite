@@ -11,7 +11,7 @@ const initialTracks = {
   isFetching: false,
 };
 
-function currentPlayingTrack(state = initialTracks, action) {
+function searchTracks(state = initialTracks, action) {
   switch (action.type) {
     case SEARCH_TRACKS_REQUEST:
       return {
@@ -38,4 +38,4 @@ function currentPlayingTrack(state = initialTracks, action) {
   }
 }
 
-export default currentPlayingTrack;
+export default searchTracks;
