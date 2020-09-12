@@ -37,16 +37,24 @@ const useStyles = makeStyles({
   },
 });
 
+const getTrackIdAndLinkedFromId = (currentTrack) => {
+  const currentTrackId = currentTrack ? currentTrack.id : null;
+  const currentTrackLinkedFromId = (currentTrack && currentTrack.linked_from_uri)
+    ? currentTrack.linked_from_uri.replace('spotify:track:', '') : null;
+  return ({
+    currentTrackId,
+    currentTrackLinkedFromId,
+  })
+}
+
 function InfiniteList(props) {
   const { search, playlistId } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
-
   const accessToken = useSelector((state) => state.user.accessToken);
   const { list: items, isFetching, endOfList } = useSelector((state) => state.tracks, shallowEqual);
   const currentTrack = useSelector((state) => state.playbackStatus.currentTrack);
-  const currentTrackId = currentTrack ? currentTrack.id : null;
-  const currentTrackLinkedFromId = currentTrack ? currentTrack.linked_from_uri.replace('spotify:track:', '') : null;
+  const { currentTrackId, currentTrackLinkedFromId } = getTrackIdAndLinkedFromId(currentTrack);
   const limit = 50;
 
   const handleClick = (id, key) => {
