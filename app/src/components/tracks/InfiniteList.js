@@ -46,6 +46,7 @@ function InfiniteList(props) {
   const { list: items, isFetching, endOfList } = useSelector((state) => state.tracks, shallowEqual);
   const currentTrack = useSelector((state) => state.playbackStatus.currentTrack);
   const currentTrackId = currentTrack ? currentTrack.id : null;
+  const currentTrackLinkedFromId = currentTrack ? currentTrack.linked_from_uri.replace('spotify:track:', '') : null;
   const limit = 50;
 
   const handleClick = (id, key) => {
@@ -74,7 +75,7 @@ function InfiniteList(props) {
       divider 
       key={index}
       classes={{ root: classes.item, selected: classes.selected }}
-      selected={track.id === currentTrackId}
+      selected={track.id === currentTrackId || track.id === currentTrackLinkedFromId}
       onClick={() => handleClick(track.id, index)}
     >
       <TrackListItem
