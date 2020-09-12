@@ -37,8 +37,7 @@ function Lyrics() {
   useEffect(() => {
     if (track) {
       const trimmedName = trimSearchText(track.name);
-      const trimmedArtist = trimSearchText(track.artists[0].name);
-      const searchQuery = `${trimmedArtist} ${trimmedName}`;
+      const searchQuery = `${track.artists[0].name} ${trimmedName}`;
       dispatch(fetchLyrics(searchQuery));
     }
   }, [track, dispatch]);
