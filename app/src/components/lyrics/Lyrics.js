@@ -26,6 +26,9 @@ const trackEqual = (newTrack, oldTrack) => {
   return (!newTrack && !oldTrack);
 };
 
+// Remove text inside () and after -
+const trimSearchText = (text) => text.replace(/ *\([^)]*\)*/g, '').replace(/-.*$/,"");
+
 function Lyrics() {
   const classes = useStyles();
 
@@ -33,7 +36,9 @@ function Lyrics() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (track) {
-      const searchQuery = `${track.artists[0].name} ${track.name}`;
+      const trimmedName = trimSearchText(track.name);
+      const trimmedArtist = trimSearchText(track.artists[0].name);
+      const searchQuery = `${trimmedArtist} ${trimmedName}`;
       dispatch(fetchLyrics(searchQuery));
     }
   }, [track, dispatch]);
