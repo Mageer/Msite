@@ -57,6 +57,10 @@ function InfiniteList(props) {
   const { currentTrackId, currentTrackLinkedFromId } = getTrackIdAndLinkedFromId(currentTrack);
   const limit = 50;
 
+  useEffect(() => {
+    return () => dispatch(resetTrackList({ search, playlistId }));
+  }, [search, playlistId, dispatch]);
+
   const handleClick = (id, key) => {
     const options = {method: 'POST', headers: { Authorization: `Bearer ${accessToken}`}};
     if (search) {

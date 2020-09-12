@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import qs from 'query-string';
-import { resetTrackList } from '../../actions/tracks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +23,6 @@ function SearchTracks() {
     const search = qs.stringify({ track: data.search })
     const pathname = path + '/search';
     history.push({ pathname, search });
-    dispatch(resetTrackList({ search: data.search }));
   }
 
   return (

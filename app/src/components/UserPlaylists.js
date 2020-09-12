@@ -3,7 +3,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { List, ListItem, ListSubheader } from '@material-ui/core';
 import qs from 'query-string';
-import { resetTrackList } from '../actions/tracks';
 
 
 function UserPlaylists() {
@@ -17,7 +16,6 @@ function UserPlaylists() {
     const pathname = `${path}/playlist`;
     const search = qs.stringify({ list: playlistId});
     history.push({ pathname, search });
-    dispatch(resetTrackList({ playlistId }));
   }
   
   const listItems = () => {
