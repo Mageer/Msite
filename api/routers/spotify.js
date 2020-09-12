@@ -94,13 +94,16 @@ router.get('/current-playing-track', async (req, res) => {
     }
 });
 
-const tracksInfo = (tracks) => tracks.map((track) => ({
-    artists: track.artists.map((artist) => artist.name),
-    name: track.name,
-    id: track.id,
-    duration: track.duration_ms,
-    albumArtUrl: track.album.images[2].url,
-}));
+const tracksInfo = (tracks) => tracks.map((track) => {
+    const albumArtUrl = track.album.images.length ? track.album.images[2].url : undefined;
+    return ({
+        artists: track.artists.map((artist) => artist.name),
+        name: track.name,
+        id: track.id,
+        duration: track.duration_ms,
+        albumArtUrl,
+    })
+});
 
 router.get('/tracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
