@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { List, ListSubheader, ListItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import blue from '@material-ui/core/colors/blue';
 import InfiniteScroll from 'react-infinite-scroller';
 import TrackListItem from './TrackListItem';
+import {
+  resetTrackList,
+  fetchSearchedTracks,
+  fetchPlaylistTracks
+} from '../../actions/tracks';
 import '../../scrollbar.css';
 
 const useStyles = makeStyles({
   root: {
-    height: '100%', 
+    height: '100%',
     overflow: 'auto',
   },
   list: {
     color: '#D8D8D8',
-    backgroundColor: '#151515',
     height: '100%',
   },
   item: {
@@ -27,71 +31,41 @@ const useStyles = makeStyles({
   },
   selected: {
   },
-  sticky: {
-    backgroundColor: 'black',
-    padding: '0px',
-    margin: '0px',
+  loader: {
+    textAlign: 'center',
+    padding: '5px',
   },
 });
 
-const fetchMoreTracks = (accessToken, baseApiPathname, limit, offset) => {
-  const bearer = `Bearer ${accessToken}`;
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: bearer,
-    },
-  };
-  return fetch(`${baseApiPathname}&limit=${encodeURI(limit)}&offset=${encodeURI(offset)}`, options)
-    .then((res) => res.json())
-}
-
 function InfiniteList(props) {
-  const { baseApiPathname, playlist } = props;
+  const { search, playlistId } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
+
   const accessToken = useSelector((state) => state.user.accessToken);
+  const { list: items, isFetching, endOfList } = useSelector((state) => state.tracks, shallowEqual);
   const currentTrack = useSelector((state) => state.playbackStatus.currentTrack);
   const currentTrackId = currentTrack ? currentTrack.id : null;
-  const [items, setItems] = useState([]);
-  const [hasMoreItems, setHasMoreItems] = useState(true);
-  const [offset, setOffset] = useState(0);
   const limit = 50;
 
   const handleClick = (id, key) => {
-    const bearer = `Bearer ${accessToken}`;
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: bearer,
-      },
-    };
-
-    let url = `/spotify/play-track?uri=${encodeURI(id)}`;
-    if (playlist) {
-      url = `/spotify/play-playlist?uri=${encodeURI(playlist)}&offset=${encodeURI(key)}`;
+    const options = {method: 'POST', headers: { Authorization: `Bearer ${accessToken}`}};
+    if (search) {
+      return fetch(`/spotify/play-track?uri=${encodeURI(id)}`, options);
     }
-
-    return fetch(url, options)
-      .then((res) => {
-        if (!res.ok){
-          throw new Error('something went wrong');
-        }
-        return res.json();
-      })
-      .catch((err) => console.log(err));
+    if (playlistId) {
+      return fetch(`/spotify/play-playlist?uri=${encodeURI(playlistId)}&offset=${encodeURI(key)}`, options);
+    }
   };
 
-  const loadFunc = async () => {
-    await fetchMoreTracks(accessToken, baseApiPathname, limit, offset)
-      .then((tracks) => {
-        if (tracks && tracks.length) {
-          setOffset((offset) => offset + limit);
-          setItems((items) => [...items, ...tracks]);
-        } else {
-          setHasMoreItems(false);
-        }
-      });
+  const loadFunc = () => {
+    const offset = items.length;
+    if (search) {
+      return dispatch(fetchSearchedTracks(search, limit, offset));
+    }
+    if (playlistId){
+      return dispatch(fetchPlaylistTracks(playlistId, limit, offset));
+    }
   }
 
   const listItems = items.map((track, index) => (
@@ -117,13 +91,14 @@ function InfiniteList(props) {
     <InfiniteScroll
       pageStart={0}
       loadMore={loadFunc}
-      hasMore={hasMoreItems}
-      loader={<div className="loader" key={0}>Loading ...</div>}
+      hasMore={!endOfList && !isFetching}
       useWindow={false}
     >
       <List className={classes.list}>
         {listItems}
       </List>
+
+      <div className={classes.loader}>{isFetching ? 'loading' : null}</div>
 
     </InfiniteScroll>
     </div>

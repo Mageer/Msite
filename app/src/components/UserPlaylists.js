@@ -1,24 +1,23 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { List, ListItem, ListSubheader } from '@material-ui/core';
 import qs from 'query-string';
+import { resetTrackList } from '../actions/tracks';
 
 
 function UserPlaylists() {
   const { path } = useRouteMatch();
   const history = useHistory();
+  const dispatch = useDispatch();
   const { playlists } = useSelector((state) => state.userPlaylists, shallowEqual);
 
-  // const handleClick = () => {
-  //   const pathname = path + '/saved-tracks';
-  //   history.push({ pathname });
-  // }
   
   const handleClick = (playlistId) => {
     const pathname = `${path}/playlist`;
     const search = qs.stringify({ list: playlistId});
     history.push({ pathname, search });
+    dispatch(resetTrackList({ playlistId }));
   }
   
   const listItems = () => {

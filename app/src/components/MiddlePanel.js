@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     overflowY: 'auto', 
     backgroundColor: '#2A2A2A',
     color: '#F7F7F7',
-    padding: '0px',
+    padding: '5px',
   },
 });
 
@@ -43,12 +43,12 @@ function MiddlePanel() {
         <Route 
           path={path + "/playlist"} 
           component={() => 
-            <InfiniteList baseApiPathname={`/spotify/playlist?uri=${params.list}`} playlist={params.list}/>}
+            <InfiniteList playlistId={params.list}/>}
         />
         <Route 
           path={path + "/search"} 
           component={() => 
-            <InfiniteList baseApiPathname={`/spotify/tracks?search=${params.track}`} />} 
+            <InfiniteList search={params.track} />} 
         />
       </div>
     </Box>
