@@ -5,7 +5,7 @@ const User = require('../models/user');
 const setUserCookies = require('../lib/set_user_cookies');
 const getSpotifyApi = require('../middleware/get_spotify_api');
 
-router.use(getSpotifyApi({ redirectUri: 'http://localhost:4000/login/spotify-callback/' }));
+router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URI}login/spotify-callback/` }));
 
 router.post('/spotify', async (req, res) => {
     const spotifyApi = req.spotifyApi;

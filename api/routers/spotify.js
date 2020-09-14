@@ -9,7 +9,7 @@ const getUser = require('../middleware/get_user');
 
 // Very important that auth comes before getSpotifyApi.
 router.use(auth);
-router.use(getSpotifyApi({ redirectUri: 'http://localhost:4000/spotify/callback/' }));
+router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URI}spotify/callback/` }));
 
 /** TODO: All authentication related should be changed
  *  to POST instead of GET. Currently GET due to easier 
