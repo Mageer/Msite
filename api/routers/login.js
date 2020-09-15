@@ -62,9 +62,7 @@ router.get('/spotify-callback', async (req, res) => {
 
         await setUserCookies(user, res);
         const userAccessToken = await user.generateAccessToken();
-        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback\
-        ?username=${encodeURI(user.username)}\
-        &accessToken=${encodeURI(userAccessToken)}`);
+        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback?username=${encodeURI(user.username)}&accessToken=${encodeURI(userAccessToken)}`);
 
     } catch (err) {
         res.status(400).send({ error: err.message });

@@ -48,10 +48,7 @@ router.get('/callback', getUser, async (req, res) => {
 
         const user_access_token = await user.generateAccessToken();
 
-        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback\
-        ?username=${user.username}\
-        &access_token=${user_access_token}\
-        &spotify_access_token=${access_token}`);
+        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback?username=${user.username}&access_token=${user_access_token}&spotify_access_token=${access_token}`);
 
     } catch (err) {
         console.log(err);
