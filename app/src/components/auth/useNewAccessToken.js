@@ -5,7 +5,7 @@ import { refreshUser } from '../../actions/user';
 
 function useNewAccessToken() {
   const dispatch = useDispatch();
-  const intervalLength = 55*60*1000; //  Token expires after 1hr
+  const intervalLength = 1*60*1000; //  Token expires after 1hr
 
   useEffect(() => {
     const interval = setInterval(() => dispatch(refreshUser()), intervalLength);

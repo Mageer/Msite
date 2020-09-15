@@ -26,7 +26,7 @@ export const fetchUserPlaylists = () => (dispatch, getState) => {
       Authorization: bearer,
     },
   };
-  return fetch(`/spotify/user-playlists`, options)
+  return fetch(`${process.env.REACT_APP_API_URI}/spotify/user-playlists`, options)
     .then((res) => {
       if (!res.ok) {
         throw new Error('Unable to fetch user playlists');

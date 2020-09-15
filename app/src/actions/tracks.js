@@ -63,7 +63,7 @@ const fetchTracks = (accessToken, pathname, limit, offset) => {
 export const fetchSearchedTracks = (search, limit, offset) => (dispatch, getState) => {
   dispatch(searchTracksRequest(search, limit, offset));
   const { accessToken } = getState().user;
-  fetchTracks(accessToken, `/spotify/tracks?search=${encodeURI(search)}`, limit, offset)
+  fetchTracks(accessToken, `${process.env.REACT_APP_API_URI}/spotify/tracks?search=${encodeURI(search)}`, limit, offset)
     .then((tracks) => dispatch(searchTracksSuccess(tracks)))
     .catch((error) => dispatch(searchTracksFailure(error.message)));
 };
@@ -71,7 +71,7 @@ export const fetchSearchedTracks = (search, limit, offset) => (dispatch, getStat
 export const fetchPlaylistTracks = (playlistId, limit, offset) => (dispatch, getState) => {
   dispatch(playlistTracksRequest(playlistId, limit, offset));
   const { accessToken } = getState().user;
-  fetchTracks(accessToken, `/spotify/playlist?uri=${playlistId}`, limit, offset)
+  fetchTracks(accessToken, `${process.env.REACT_APP_API_URI}/spotify/playlist?uri=${playlistId}`, limit, offset)
     .then((tracks) => dispatch(playlistTracksSuccess(tracks)))
     .catch((error) => dispatch(playlistTracksFailure(error.message)));
 };

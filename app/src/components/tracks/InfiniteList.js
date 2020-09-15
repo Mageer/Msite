@@ -64,10 +64,10 @@ function InfiniteList(props) {
   const handleClick = (id, key) => {
     const options = {method: 'POST', headers: { Authorization: `Bearer ${accessToken}`}};
     if (search) {
-      return fetch(`/spotify/play-track?uri=${encodeURI(id)}`, options);
+      return fetch(`${process.env.REACT_APP_API_URI}/spotify/play-track?uri=${encodeURI(id)}`, options);
     }
     if (playlistId) {
-      return fetch(`/spotify/play-playlist?uri=${encodeURI(playlistId)}&offset=${encodeURI(key)}`, options);
+      return fetch(`${process.env.REACT_APP_API_URI}/spotify/play-playlist?uri=${encodeURI(playlistId)}&offset=${encodeURI(key)}`, options);
     }
   };
 

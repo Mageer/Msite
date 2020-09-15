@@ -15,9 +15,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 // app.use(cors({
-//     origin: process.env.CLIENT_BASE_URI
+//     origin: process.env.CLIENT_BASE_URL
 // }));
-console.log(`${process.env.SERVER_BASE_URI}spotify/callback/`);
 
 app.use('/lyrics', lyrics);
 app.use('/spotify', spotify);

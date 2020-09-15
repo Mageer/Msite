@@ -9,7 +9,7 @@ const getUser = require('../middleware/get_user');
 
 // Very important that auth comes before getSpotifyApi.
 router.use(auth);
-router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URI}spotify/callback/` }));
+router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URL}/spotify/callback/` }));
 
 /** TODO: All authentication related should be changed
  *  to POST instead of GET. Currently GET due to easier 
@@ -48,11 +48,10 @@ router.get('/callback', getUser, async (req, res) => {
 
         const user_access_token = await user.generateAccessToken();
 
-        res.redirect(process.env.CLIENT_BASE_URI 
-            + 'spotify-callback' 
-            + '?' + 'username=' + user.username
-            + '&' + 'access_token=' + user_access_token
-            + '&' + 'spotify_access_token=' + access_token);
+        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback\
+        ?username=${user.username}\
+        &access_token=${user_access_token}\
+        &spotify_access_token=${access_token}`);
 
     } catch (err) {
         console.log(err);

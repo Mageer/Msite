@@ -52,7 +52,7 @@ export const loginUser = (username, password) => (dispatch) => {
     body: JSON.stringify(data),
   };
 
-  return fetch('/user/login', options)
+  return fetch(`${process.env.REACT_APP_API_URI}/user/login`, options)
     .then((res) => {
       if (!res.ok) {
         throw new Error('Unauthorized');
@@ -67,7 +67,7 @@ export const loginUser = (username, password) => (dispatch) => {
 /* Username and refresh token should be in cookies */
 export const refreshUser = () => (dispatch) => {
   dispatch(refreshUserRequest());
-  fetch('/user/new-access-token', { method: 'POST' })
+  fetch(`${process.env.REACT_APP_API_URI}/user/new-access-token`, { method: 'POST' })
     .then((res) => {
       if (!res.ok) {
         throw new Error('Unauthorized');

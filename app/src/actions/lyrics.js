@@ -19,7 +19,7 @@ const lyricsFailure = (searchQuery) => ({
 
 export const fetchLyrics = (searchQuery) => (dispatch) => {
   dispatch(lyricsRequest(searchQuery));
-  return fetch(`/lyrics?search=${encodeURI(searchQuery)}`)
+  return fetch(`${process.env.REACT_APP_API_URI}/lyrics?search=${encodeURI(searchQuery)}`)
     .then((res) => res.json())
     .then(({ name, lyrics }) => dispatch(lyricsSuccess(name, lyrics)))
     .catch(() => dispatch(lyricsFailure(searchQuery)));

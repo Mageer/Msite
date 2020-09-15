@@ -22,7 +22,7 @@ function LoginSpotify() {
   const [imgSrc, setImgSrc] = useState(SpotifyLogo);
 
   const login = () => {
-    return fetch('/login/spotify', { method: 'POST' })
+    return fetch(`${process.env.REACT_APP_API_URI}/login/spotify`, { method: 'POST' })
       .then((res) => {
         if (res.ok) {
           return res.json();

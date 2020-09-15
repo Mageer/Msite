@@ -5,7 +5,7 @@ const User = require('../models/user');
 const setUserCookies = require('../lib/set_user_cookies');
 const getSpotifyApi = require('../middleware/get_spotify_api');
 
-router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URI}login/spotify-callback/` }));
+router.use(getSpotifyApi({ redirectUri: `${process.env.SERVER_BASE_URL}/login/spotify-callback/` }));
 
 router.post('/spotify', async (req, res) => {
     const spotifyApi = req.spotifyApi;
@@ -62,10 +62,9 @@ router.get('/spotify-callback', async (req, res) => {
 
         await setUserCookies(user, res);
         const userAccessToken = await user.generateAccessToken();
-        res.redirect(process.env.CLIENT_BASE_URI 
-            + 'spotify-callback' 
-            + '?' + 'username=' + encodeURI(user.username)
-            + '&' + 'accessToken=' + encodeURI(userAccessToken));
+        res.redirect(`${process.env.CLIENT_BASE_URL}/spotify-callback\
+        ?username=${encodeURI(user.username)}\
+        &accessToken=${encodeURI(userAccessToken)}`);
 
     } catch (err) {
         res.status(400).send({ error: err.message });
