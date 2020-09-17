@@ -182,12 +182,24 @@ router.put('/transfer-playback', async (req, res) => {
     try {
         const device_id = req.query.device_id;
         const play = req.query.play || false;
-        spotifyApi.transferMyPlayback({ deviceIds:[ device_id ], play });
+        await spotifyApi.transferMyPlayback({ deviceIds:[ device_id ], play });
         res.send({});
     } catch(err) {
         res.status(400).send({ error: err.msg });
     }
-})
+});
+
+router.get('/devices', async (req, res) => {
+    const spotifyApi = req.spotifyApi;
+    try {
+        const response = await spotifyApi.getMyDevices();
+        const devices = response.body.devices;
+        res.send(devices);
+    } catch(err) {
+        console.log(err);
+        res.status(400).send({ error: err });
+    }
+});
 
 
 module.exports = router;

@@ -15,7 +15,8 @@ router.post('/spotify', async (req, res) => {
             "user-read-email",
             "user-library-read", 
             "user-read-private", 
-            "user-read-currently-playing"
+            "user-read-currently-playing",
+            "user-read-playback-state",
         ];
     
         const spotifyLoginURL = spotifyApi.createAuthorizeURL(scopes);

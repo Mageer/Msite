@@ -4,6 +4,7 @@ import user from './user';
 import tracks from './tracks';
 import playbackStatus from './playbackStatus';
 import userPlaylists from './userPlaylists';
+import devices from './devices';
 
 const rootReducer = combineReducers({
   user,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   playbackStatus,
   lyrics,
   tracks,
+  devices,
 });
 
 export default rootReducer;
