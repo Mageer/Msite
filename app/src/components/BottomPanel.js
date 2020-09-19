@@ -7,10 +7,15 @@ import useSpotifyPlayer from './player/useSpotifyPlayer';
 import CurrentPlayingTrackInformation from './tracks/CurrentPlayingTrackInformation';
 import PlayerControls from './player/PlayerControls';
 import VolumeControl from './player/VolumeControl';
+import Devices from './Devices';
 
 const useStyles = makeStyles({
   trackInformation: {
     paddingLeft: '15px',
+  },
+  devices: {
+    textAlign: 'right',
+    paddingRight: '30px',
   },
   volumeControl: {
     textAlign: 'right',
@@ -46,8 +51,10 @@ function BottomPanel() {
         <Grid item xs={6}>
           <PlayerControls player={player} />
         </Grid>
-
-        <Grid item xs={3} className={classes.volumeControl}>
+        <Grid item xs={2} className={classes.devices}>
+          <Devices />
+        </Grid>
+        <Grid item xs={1} className={classes.volumeControl}>
           <VolumeControl setVolume={(volume) => player.setVolume(volume)}/>
         </Grid>
       </Grid>

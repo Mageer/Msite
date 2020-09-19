@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { playbackStatusUpdate, transferPlayback} from '../../actions/playbackStatus';
-import { fetchDevices } from '../../actions/devices';
+import { playbackStatusUpdate } from '../../actions/playbackStatus';
+import { transferPlaybackOnDeviceLoad } from '../../actions/devices';
 import useScript from 'react-script-hook';
 
 function initSpotify (token, dispatch) {
@@ -10,8 +10,7 @@ function initSpotify (token, dispatch) {
     getOAuthToken: (cb) => { cb(token); },
   });
   player.on('ready', async (data) => {
-    dispatch(fetchDevices());
-    dispatch(transferPlayback(data.device_id));
+    dispatch(transferPlaybackOnDeviceLoad(data.device_id));
   });   
   player.addListener('player_state_changed', (state) => {
     if (state) {
@@ -24,7 +23,7 @@ function initSpotify (token, dispatch) {
       dispatch(playbackStatusUpdate(current_track, duration, position, paused));
     }
   });
-  player.connect()  
+  player.connect()
   return player;
 }
 
@@ -40,7 +39,7 @@ function useSpotifyPlayer (token) {
   window.onSpotifyWebPlaybackSDKReady = () => setLoaded(true);
 
   if (loaded) {
-    player = initSpotify(token, dispatch, jwt);
+    player = initSpotify(token, dispatch);
   }
   return player;
 }

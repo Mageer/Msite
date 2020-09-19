@@ -5,7 +5,7 @@ import {
   } from '../actions/devices';
   
   const initialDevices = {
-    devices: [],
+    items: [],
     isFetching: false,
     error: null,
   };
@@ -15,14 +15,13 @@ import {
       case DEVICES_REQUEST:
         return {
           ...state,
-          devices: [],
           isFetching: true,
           error: null,
         };
       case DEVICES_SUCCESS:
         return {
           ...state,
-          devices: [...action.devices],
+          items: [...action.devices],
           isFetching: false,
         };
       case DEVICES_FAILURE:
