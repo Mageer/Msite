@@ -5,6 +5,7 @@ import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import SearchTracks from './tracks/SearchTracks';
 import InfiniteList from './tracks/InfiniteList';
+import PlaylistsList from './playlists/PlaylistsList';
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   tracksList: {
     flex: '1',
     overflowY: 'auto', 
-    backgroundColor: '#2A2A2A',
+    backgroundColor: '#131313',
     color: '#F7F7F7',
     padding: '5px',
   },
@@ -35,6 +36,7 @@ function MiddlePanel() {
         <SearchTracks />
       </Paper>
       <div className={classes.tracksList}>
+        <PlaylistsList />
         <Route 
           path={path + "/saved-tracks"} 
           component={() => 

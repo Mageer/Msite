@@ -4,7 +4,7 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { fetchUserPlaylists } from '../actions/userPlaylists';
 import CurrentPlayingTrackAlbumArt from './tracks/CurrentPlayingTrackAlbumArt';
-import UserPlaylists from './UserPlaylists';
+import CurrentPlayingTrackInformation from "./tracks/CurrentPlayingTrackInformation";
 import '../scrollbar.css';
 
 const useStyles = makeStyles({
@@ -13,11 +13,12 @@ const useStyles = makeStyles({
     height: '100%',
     flexDirection: 'column',
   },
-  albumArt: {
+  trackAlbumArt: {
 
   },
-  playlists: {
+  trackInformation: {
     flex: '1',
+    padding: '5px',
     overflowY: 'auto',
   },
 });
@@ -32,11 +33,11 @@ function LeftPanel() {
 
   return(
     <Paper elevation={0} square className={classes.root}>
-      <div>
+      <div className={classes.trackAblumArt}>
         <CurrentPlayingTrackAlbumArt />
       </div>
-      <div className={classes.playlists} id='scrollbar'>
-        <UserPlaylists />
+      <div className={classes.trackInformation} id='scrollbar'>
+        <CurrentPlayingTrackInformation />
       </div>
 
     </Paper>

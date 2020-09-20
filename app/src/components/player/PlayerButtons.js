@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     fontSize: '30px',
   },
   buttonLarge: {
-    ...buttonStyle,
-    fontSize: '50px',
+     ...buttonStyle,
+    // fontSize: '30px',
   }
 })
 

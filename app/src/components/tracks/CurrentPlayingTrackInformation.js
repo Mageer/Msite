@@ -1,14 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
-  name: {
-
+  information: {
+    paddingLeft: "10px",
   },
-  artist: {
-    color: 'gray',
+  fieldDescription: {
+    color: "gray",
   },
 });
 
@@ -17,17 +17,44 @@ function CurrentPlayingTrackInformation() {
   const classes = useStyles();
 
   if (!track) {
-    return (
-      <div></div>
-    );
+    return <div></div>;
   }
 
+  const description = (name) => (
+    <Typography variant="body2" className={classes.fieldDescription}>
+      {`${name}:`}
+    </Typography>
+  );
+
   const name = track.name;
-  const artist = track.artists[0].name;
+  const artists = track.artists.map((artist) => artist.name).join(", ");
+  const album = track.album.name;
   return (
     <div>
-      <Typography variant='h5' className={classes.name}>{name}</Typography>
-      <Typography variant='body1' className={classes.artist}>{artist}</Typography>
+      {description('Name')}
+      <Typography variant="h6" className={classes.information}>
+        {name}
+      </Typography>
+      <br />
+      {description('Artists')}
+      <Typography variant="body1" className={classes.information}>
+        {artists}
+      </Typography>
+      <br />
+      {description('Album')}
+      <Typography variant="body1" className={classes.information}>
+        {album}
+      </Typography>
+      <br />
+      {description('Year')}
+      <Typography variant="body1" className={classes.information}>
+        Coming soon...
+      </Typography>
+      <br />
+      {description('Popularity')}
+      <Typography variant="body1" className={classes.information}>
+        Coming soon...
+      </Typography>
     </div>
   );
 }
