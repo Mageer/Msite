@@ -5,7 +5,7 @@ import {
   } from '../actions/userPlaylists';
   
   const initialPlaylists = {
-    playlists: null,
+    items: [],
     error: '',
     isFetching: false,
   };
@@ -15,14 +15,14 @@ import {
       case USER_PLAYLISTS_REQUEST:
         return {
           ...state,
-          playlists: null,
+          items: [],
           error: '',
           isFetching: true,
         };
       case USER_PLAYLISTS_SUCCESS:
         return {
           ...state,
-          playlists: action.playlists,
+          items: action.playlists,
           isFetching: false,
         };
       case USER_PLAYLISTS_FAILURE:

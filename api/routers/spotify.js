@@ -122,6 +122,7 @@ router.get('/user-playlists', async (req, res) => {
         const { body } = await spotifyApi.getUserPlaylists();
         const playlists = body.items.map((playlist) => ({
             id: playlist.id,
+            imageUrl: playlist.images[0].url,
             name: playlist.name,
         }));
         res.send(playlists);
