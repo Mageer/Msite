@@ -1,26 +1,18 @@
-import React from 'react';
+import React from "react";
 import { useRouteMatch, Route, useLocation } from "react-router-dom";
-import qs from 'query-string';
-import { Box, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import SearchTracks from './tracks/SearchTracks';
-import InfiniteList from './tracks/InfiniteList';
-import PlaylistsList from './playlists/PlaylistsList';
+import qs from "query-string";
+import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import MusicSearchResult from "./musicSearch/MusicSearchResult";
+import PlaylistsList from "./playlists/PlaylistsList";
+import "../scrollbar.css";
 
 const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  searchBar: {
-  },
-  tracksList: {
-    flex: '1',
-    overflowY: 'auto', 
-    backgroundColor: '#131313',
-    color: '#F7F7F7',
-    padding: '5px',
+    overflowY: "auto",
+    height: "100%",
+    backgroundColor: "#1C1C1C",
+    color: "#F7F7F7",
   },
 });
 
@@ -30,30 +22,11 @@ function MiddlePanel() {
   const location = useLocation();
   const params = qs.parse(location.search);
 
-  return(
-    <Box boxShadow={0} className={classes.root}>
-      <Paper square>
-        <SearchTracks />
-      </Paper>
-      <div className={classes.tracksList}>
-        <PlaylistsList />
-        <Route 
-          path={path + "/saved-tracks"} 
-          component={() => 
-            <InfiniteList baseApiPathname={`/spotify/user-saved-tracks?`} playlist/>}
-        />
-        <Route 
-          path={path + "/playlist"} 
-          component={() => 
-            <InfiniteList playlistId={params.list}/>}
-        />
-        <Route 
-          path={path + "/search"} 
-          component={() => 
-            <InfiniteList search={params.track} />} 
-        />
-      </div>
-    </Box>
+  return (
+    <div className={classes.root}>
+      <Route path={"/search"} component={() => <MusicSearchResult />} />
+      <Route path={"/my-playlists"} component={() => <PlaylistsList />} />
+    </div>
   );
 }
 

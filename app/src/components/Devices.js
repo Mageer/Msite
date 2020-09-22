@@ -21,10 +21,8 @@ const deviceIcon = (deviceType) => {
 
 function Devices() {
   const dispatch = useDispatch();
-  const deviceId = useSelector((state) => state.playbackStatus.deviceId);
   const devices = useSelector((state) => state.devices.items);
 
-  const [anchorEl, setAnchorEl] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleClick = () => dispatch(fetchDevices());

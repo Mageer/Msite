@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import SearchLyrics from './lyrics/SearchLyrics';
 import Lyrics from './lyrics/Lyrics';
 import '../scrollbar.css';
 
@@ -16,7 +15,7 @@ const useStyles = makeStyles({
   lyrics: {
     flex: '1',
     overflowY: 'scroll',
-    backgroundColor: '#323232',
+    backgroundColor: '#0B0B0B',
   },
 });
 
@@ -24,9 +23,6 @@ function RightPanel() {
   const classes = useStyles();
   return(
     <Box boxShadow={0} className={classes.root}>
-      <Paper square className={classes.searchBar}>
-        <SearchLyrics />
-      </Paper>
       <div className={classes.lyrics} id='scrollbar'>
         <Lyrics />
       </div>

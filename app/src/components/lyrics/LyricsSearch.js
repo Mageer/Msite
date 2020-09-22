@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { fetchLyrics } from '../../actions/lyrics';
 
-function SearchLyrics() {
+function LyricsSearch() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const searchSong = (data) => dispatch(fetchLyrics(data.search));
 
   return (
-    <div style={{ padding: '10px' }}>
+    <div style={{ padding: '5px' }}>
       <form onSubmit={handleSubmit(searchSong)}>
         <Input
           inputRef={register}
@@ -23,4 +23,4 @@ function SearchLyrics() {
   );
 }
 
-export default SearchLyrics;
+export default LyricsSearch;

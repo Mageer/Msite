@@ -47,7 +47,7 @@ const getTrackIdAndLinkedFromId = (currentTrack) => {
   })
 }
 
-function InfiniteList(props) {
+function TrackList(props) {
   const { search, playlistId } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -118,4 +118,4 @@ function InfiniteList(props) {
   );
 }
 
-export default InfiniteList;
+export default TrackList;

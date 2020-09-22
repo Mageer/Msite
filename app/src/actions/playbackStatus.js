@@ -35,7 +35,7 @@ export const transferPlayback = (device_id) => (dispatch, getState) => {
       Authorization: bearer,
     },
   };
-  return fetch(`${process.env.REACT_APP_API_URI}/spotify/transfer-playback?device_id=${encodeURI(device_id)}&play=true`, options)
+  return fetch(`${process.env.REACT_APP_API_URI}/spotify/transfer-playback?device_id=${encodeURI(device_id)}`, options)
   .then((res) => {
     if (!res.ok) {
       throw new Error('Unable to transfer playback');

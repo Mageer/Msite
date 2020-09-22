@@ -1,31 +1,32 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import LeftPanel from './LeftPanel';
-import MiddlePanel from './MiddlePanel';
-import RightPanel from './RightPanel';
-import BottomPanel from './BottomPanel';
-import useNewAccessToken from './auth/useNewAccessToken';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Navbar from "./Navbar";
+import LeftPanel from "./LeftPanel";
+import MiddlePanel from "./MiddlePanel";
+import RightPanel from "./RightPanel";
+import BottomPanel from "./BottomPanel";
+import useNewAccessToken from "./auth/useNewAccessToken";
 
 const useStyles = makeStyles({
   root: {
-    height: '100%',
-    paddingBottom: '50px',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    paddingBottom: "50px",
+    display: "flex",
+    flexDirection: "column",
   },
-  topPanel: {
-    flex: '1',
-    minHeight: '0',
+  middlePanel: {
+    flex: "1",
+    minHeight: "0",
   },
   topPanelItem: {
-    height: '100%'
+    height: "100%",
   },
   bottomPanel: {
-    flex: 'none',
-  }
+    flex: "none",
+  },
 });
 
 function Home() {
@@ -34,13 +35,16 @@ function Home() {
   useNewAccessToken();
 
   if (!loggedIn) {
-    return <Redirect to='/' />;
+    return <Redirect to="/login" />;
   }
+
 
   return (
     <div className={classes.root}>
-      <div className={classes.topPanel}>
-        <Grid container
+      <Navbar />
+      <div className={classes.middlePanel}>
+        <Grid
+          container
           direction="row"
           justify="center"
           alignItems="flex-start"
@@ -48,9 +52,16 @@ function Home() {
           spacing={0}
           className={classes.topPanelItem}
         >
-          <Grid item xs={2} className={classes.topPanelItem}><LeftPanel /></Grid>
-          <Grid item xs={7} className={classes.topPanelItem}><MiddlePanel /></Grid>
-          <Grid item xs={3} className={classes.topPanelItem}><RightPanel /></Grid>
+          <Grid item xs={2} className={classes.topPanelItem}>
+            <LeftPanel />
+          </Grid>
+          <Grid item xs={7} className={classes.topPanelItem}>
+            <MiddlePanel />
+          </Grid>
+          <Grid item xs={3} className={classes.topPanelItem}>
+            <RightPanel />
+          </Grid>
+
         </Grid>
       </div>
       <div className={classes.bottomPanel}>

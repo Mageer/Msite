@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Alert } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
-import LoginSpotify from './auth/LoginSpotify';
-import { refreshUser } from '../actions/user';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
+import { makeStyles } from "@material-ui/core/styles";
+import LoginSpotify from "./auth/LoginSpotify";
+import { refreshUser } from "../actions/user";
 
 const useStyles = makeStyles({
   root: {
-    display: 'flex', 
-    justifyContent:'center', 
-    alignItems: 'center', 
-    height:'100%',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
   userLogin: {
-    margin: 'auto',
-    paddingTop: '20vh',
+    margin: "auto",
+    paddingTop: "20vh",
   },
 });
 
@@ -23,14 +23,13 @@ function Welcome() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const classes = useStyles();
-  
+
   useEffect(() => {
     dispatch(refreshUser());
-  }, [dispatch])
+  }, [dispatch]);
 
-  // TODO: FOR TESTING
   if (loggedIn) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/" />;
   }
 
   return (
