@@ -1,41 +1,80 @@
 import {
+  SET_CURRENT_LYRICS_ID,
   LYRICS_REQUEST,
   LYRICS_SUCCESS,
   LYRICS_FAILURE,
-} from '../actions/lyrics';
+} from "../actions/lyrics";
 
 const initialLyrics = {
-  searchQuery: '',
-  songName: '',
-  isFetching: false,
-  lyrics: '',
+  currentLyricsId: undefined,
+  items: {},
 };
+
+function setCurrentLyricsId(state, action) {
+  return {
+    ...state,
+    currentLyricsId: action.id,
+  };
+}
+
+function lyricsRequest(state, action) {
+  const newItem = {
+    name: "",
+    lyrics: "",
+    isFetching: true,
+    error: null,
+  };
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [action.id]: newItem,
+    },
+  };
+}
+
+function lyricsSuccess(state, action) {
+  const newItem = {
+    name: action.name,
+    lyrics: action.lyrics,
+    isFetching: false,
+    error: null,
+  };
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [action.id]: newItem,
+    },
+  };
+}
+
+function lyricsFailure(state, action) {
+  const newItem = {
+    name: "",
+    lyrics: "",
+    isFetching: false,
+    error: "Lyrics not found",
+  };
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      [action.id]: newItem,
+    },
+  };
+}
 
 function lyrics(state = initialLyrics, action) {
   switch (action.type) {
+    case SET_CURRENT_LYRICS_ID:
+      return setCurrentLyricsId(state, action);
     case LYRICS_REQUEST:
-      return {
-        ...state,
-        searchQuery: action.searchQuery,
-        songName: '',
-        lyrics: '',
-        isFetching: true,
-      };
+      return lyricsRequest(state, action);
     case LYRICS_SUCCESS:
-      return {
-        ...state,
-        songName: action.songName,
-        isFetching: false,
-        lyrics: action.lyrics,
-      };
-    case LYRICS_FAILURE: // Add failure message
-      return {
-        ...state,
-        searchQuery: action.searchQuery,
-        songName: '',
-        isFetching: false,
-        lyrics: 'Lyrics not found',
-      };
+      return lyricsSuccess(state, action);
+    case LYRICS_FAILURE:
+      return lyricsFailure(state, action);
     default:
       return state;
   }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { playbackStatusUpdate } from "../../actions/playbackStatus";
 import { transferPlaybackOnDeviceLoad } from "../../actions/devices";
+import { setCurrentLyricsId } from "../../actions/lyrics";
+import trackToLyricsId from "../../lib/trackToLyricsId";
 import useScript from "react-script-hook";
 
 function initSpotify(token, dispatch) {
@@ -22,6 +24,8 @@ function initSpotify(token, dispatch) {
         duration,
         track_window: { current_track },
       } = state;
+      const lyricsId = trackToLyricsId(current_track);
+      dispatch(setCurrentLyricsId(lyricsId));
       dispatch(playbackStatusUpdate(current_track, duration, position, paused));
     }
   });
