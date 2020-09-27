@@ -105,7 +105,7 @@ router.get('/tracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
     const { search, limit, offset } = req.query;
     try {
-        const { body: searchResults } = await spotifyApi.searchTracks(search, {limit, offset});
+        const { body: searchResults } = await spotifyApi.searchTracks(search, {limit: limit || 50, offset});
         const tracks = searchResults.tracks.items;
         res.status(200).send(tracksInfo(tracks));
 
@@ -166,11 +166,11 @@ router.post('/play-playlist', async (req, res) => {
     }
 });
 
-router.get('/playlist', async (req, res) => {
+router.get('/playlistTracks', async (req, res) => {
     const spotifyApi = req.spotifyApi;
-    const { uri, limit, offset } = req.query;
+    const { id, limit, offset } = req.query;
     try {
-        const { body: playlistTracks } = await spotifyApi.getPlaylistTracks(uri, { limit, offset });
+        const { body: playlistTracks } = await spotifyApi.getPlaylistTracks(id, { limit: limit || 50, offset });
         const tracks = playlistTracks.items.map((track) => track.track);
         res.send(tracksInfo(tracks));   
     } catch(err) {

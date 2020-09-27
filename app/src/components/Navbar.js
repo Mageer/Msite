@@ -20,9 +20,6 @@ function Navbar() {
   const classes = useStyles();
   const history = useHistory();
   const handleMyPlaylists = () => history.push({ pathname: "/my-playlists" });
-
-  const handleSearch = () => history.push({ pathname: "/search" });
-
   const handleLikedSongs = () => history.push({ pathname: "/liked-songs" });
 
   return (
@@ -40,13 +37,13 @@ function Navbar() {
 
         <Grid item xs={7}>
           <ButtonGroup variant="text" size="large">
-            <Button onClick={handleLikedSongs}>
-              <FavoriteIcon />
-              Liked songs
-            </Button>
             <Button onClick={handleMyPlaylists}>
               <PlaylistPlayIcon />
               My playlists
+            </Button>
+            <Button disabled onClick={handleLikedSongs}>
+              <FavoriteIcon />
+              Liked songs
             </Button>
             <Button disabled>
               <NewReleasesIcon />

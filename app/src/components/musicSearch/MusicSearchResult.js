@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import qs from "query-string";
-import TrackList from "../tracks/TrackList";
+import SearchTrackList from "./SearchTrackList";
 
 const useStyles = makeStyles({
   container: {
@@ -32,7 +32,7 @@ function MusicSearchResult() {
           Search results for '{params.query}'
         </Typography>
       </Paper>
-        <TrackList search={params.query} />
+        <SearchTrackList search={params.query} />
     </div>
   );
 }

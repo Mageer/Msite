@@ -1,17 +1,19 @@
-import { combineReducers } from 'redux';
-import lyrics from './lyrics';
-import user from './user';
-import tracks from './tracks';
-import playbackStatus from './playbackStatus';
-import userPlaylists from './userPlaylists';
-import devices from './devices';
+import { combineReducers } from "redux";
+import lyrics from "./lyrics";
+import user from "./user";
+import playbackStatus from "./playbackStatus";
+import userPlaylists from "./userPlaylists";
+import playlists from "./playlists";
+import search from "./search";
+import devices from "./devices";
 
 const rootReducer = combineReducers({
   user,
-  userPlaylists,
   playbackStatus,
   lyrics,
-  tracks,
+  userPlaylists,
+  playlists,
+  search,
   devices,
 });
 

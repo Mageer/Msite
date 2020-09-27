@@ -1,6 +1,8 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Card, CardActionArea, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import qs from "query-string";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,14 +20,19 @@ const useStyles = makeStyles((theme) => ({
 
 function PlaylistItem(props) {
   const classes = useStyles();
+  const history = useHistory();
   const { playlist } = props;
 
-  const handleClick = () => console.log(playlist.id);
+  const handleClick = (id) => {
+    const search = qs.stringify({ id });
+    const pathname = "/playlist";
+    history.push({ pathname, search });
+  };
 
   return (
     <Card className={classes.container} square elevation={2}>
-      <CardActionArea onClick={handleClick}>
-        <img src={playlist.imageUrl} className={classes.image} />
+      <CardActionArea onClick={() => handleClick(playlist.id)}>
+        <img src={playlist.imageUrl} className={classes.image} alt={"Playlist art cover"}/>
         <Typography variant={"body1"} className={classes.text}>
           {playlist.name}
         </Typography>

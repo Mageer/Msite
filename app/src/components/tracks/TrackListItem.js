@@ -28,7 +28,7 @@ function TrackListItem(props) {
       </Grid>
       <Grid item xs={4}>
         <Typography variant='caption'>
-          {artists}
+          {artists.join(', ')}
         </Typography>
       </Grid>
       <Grid item xs={2}>
