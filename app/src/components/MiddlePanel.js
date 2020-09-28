@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import MusicSearchResult from "./musicSearch/MusicSearchResult";
 import PlaylistTrackList from "./playlists/PlaylistTrackList";
-import PlaylistsList from "./playlists/PlaylistsList";
+import MyPlaylists from "./playlists/MyPlaylists";
 import "../scrollbar.css";
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ function MiddlePanel() {
   return (
     <div className={classes.root}>
       <Route path={"/search"} component={() => <MusicSearchResult />} />
-      <Route path={"/my-playlists"} component={() => <PlaylistsList />} />
+      <Route path={"/my-playlists"} component={() => <MyPlaylists />} />
       <Route path={"/playlist"} component={() => <PlaylistTrackList />} />
     </div>
   );

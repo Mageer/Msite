@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import qs from "query-string";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    backgroundColor: "#484848",
+  cardContainer: {
+    lineHeight: "0px",
   },
   image: {
     width: "100%",
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   text: {
     padding: "5px",
     textAlign: "center",
+    color: "gray",
   },
 }));
 
@@ -30,14 +31,20 @@ function PlaylistItem(props) {
   };
 
   return (
-    <Card className={classes.container} square elevation={2}>
-      <CardActionArea onClick={() => handleClick(playlist.id)}>
-        <img src={playlist.imageUrl} className={classes.image} alt={"Playlist art cover"}/>
-        <Typography variant={"body1"} className={classes.text}>
-          {playlist.name}
-        </Typography>
-      </CardActionArea>
-    </Card>
+    <div>
+      <Card square elevation={2} onClick={handleClick}>
+        <CardActionArea className={classes.cardContainer}>
+          <img
+            src={playlist.imageUrl}
+            className={classes.image}
+            alt={"Playlist art cover"}
+          />
+        </CardActionArea>
+      </Card>
+      <Typography variant={"body1"} className={classes.text}>
+        {playlist.name}
+      </Typography>
+    </div>
   );
 }
 

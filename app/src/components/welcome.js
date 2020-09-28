@@ -29,7 +29,7 @@ function Welcome() {
   }, [dispatch]);
 
   if (loggedIn) {
-    return <Redirect to="/" />;
+    return <Redirect to="/my-playlists" />;
   }
 
   return (
