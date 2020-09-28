@@ -6,6 +6,7 @@ import userPlaylists from "./userPlaylists";
 import playlists from "./playlists";
 import search from "./search";
 import devices from "./devices";
+import initialLoad from "./initialLoad";
 
 const rootReducer = combineReducers({
   user,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   playlists,
   search,
   devices,
+  initialLoad,
 });
 
 export default rootReducer;

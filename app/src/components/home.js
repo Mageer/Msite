@@ -8,7 +8,9 @@ import LeftPanel from "./LeftPanel";
 import MiddlePanel from "./MiddlePanel";
 import RightPanel from "./RightPanel";
 import BottomPanel from "./BottomPanel";
+import LoadingScreen from "./LoadingScreen";
 import useNewAccessToken from "./auth/useNewAccessToken";
+import useSpotifyPlayer from "./player/useSpotifyPlayer";
 
 const useStyles = makeStyles({
   root: {
@@ -31,13 +33,18 @@ const useStyles = makeStyles({
 
 function Home() {
   const loggedIn = useSelector((state) => state.user.loggedIn);
+  const loaded = useSelector((state) => state.initialLoad.loaded);
   const classes = useStyles();
   useNewAccessToken();
+  const player = useSpotifyPlayer();
 
   if (!loggedIn) {
     return <Redirect to="/login" />;
   }
 
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className={classes.root}>
@@ -61,11 +68,10 @@ function Home() {
           <Grid item xs={3} className={classes.topPanelItem}>
             <RightPanel />
           </Grid>
-
         </Grid>
       </div>
       <div className={classes.bottomPanel}>
-        <BottomPanel />
+        <BottomPanel player={player} />
       </div>
     </div>
   );

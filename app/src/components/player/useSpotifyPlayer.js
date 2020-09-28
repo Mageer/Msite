@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { playbackStatusUpdate } from "../../actions/playbackStatus";
 import { transferPlaybackOnDeviceLoad } from "../../actions/devices";
 import { setCurrentLyricsId } from "../../actions/lyrics";
 import trackToLyricsId from "../../lib/trackToLyricsId";
 import useScript from "react-script-hook";
+import jwt from "jsonwebtoken";
+
+const getSpotifyAccessToken = (jwtToken) => {
+  const decodedJwt = jwt.decode(jwtToken);
+  const spotifyAccessToken = decodedJwt.tokens.spotify;
+  return spotifyAccessToken;
+};
 
 function initSpotify(token, dispatch) {
   const player = new window.Spotify.Player({
@@ -33,10 +40,11 @@ function initSpotify(token, dispatch) {
   return player;
 }
 
-function useSpotifyPlayer(token) {
+function useSpotifyPlayer() {
   const dispatch = useDispatch();
+  const jwtToken = useSelector((state) => state.user.accessToken);
   const [loaded, setLoaded] = useState(false);
-  let player = null;
+  const [player, setPlayer] = useState(null);
 
   useScript({
     src: "https://sdk.scdn.co/spotify-player.js",
@@ -44,9 +52,12 @@ function useSpotifyPlayer(token) {
   });
   window.onSpotifyWebPlaybackSDKReady = () => setLoaded(true);
 
-  if (loaded) {
-    player = initSpotify(token, dispatch);
-  }
+  useEffect(() => {
+    if (loaded && jwtToken) {
+      setPlayer(initSpotify(getSpotifyAccessToken(jwtToken), dispatch));
+    }
+  }, [loaded, jwtToken, dispatch]);
+
   return player;
 }
 

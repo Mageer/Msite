@@ -1,4 +1,5 @@
 import { transferPlayback } from "./playbackStatus";
+import { initialLoadDone } from "./initialLoad";
 
 export const DEVICES_REQUEST = "DEVICES_REQUEST";
 export const DEVICES_SUCCESS = "DEVICES_SUCCESS";
@@ -47,7 +48,10 @@ export const transferPlaybackOnDeviceLoad = (
     let devices = getState().devices.items;
     let isDeviceLoaded = devices.some((device) => device.id === myDeviceId);
     if (isDeviceLoaded) {
-      dispatch(transferPlayback(myDeviceId));
+      dispatch(transferPlayback(myDeviceId)).then(() =>
+        dispatch(initialLoadDone())
+      );
+
       return clearInterval(intervalId);
     }
     if (tries < maxTries) {
