@@ -11,12 +11,14 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: blue[800],
+      hover: blue[500],
+      active: blue[800],
     },
     text: {
       primary: "#D8D8D8",
     },
     background: {
-      paper: '#292929'
+      paper: "#292929",
     },
     type: "dark",
   },

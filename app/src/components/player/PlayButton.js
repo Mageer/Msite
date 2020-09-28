@@ -1,16 +1,25 @@
-import React from 'react';
-import PlayArrowRounded from '@material-ui/icons/PlayArrowRounded';
-import PauseRounded from '@material-ui/icons/PauseRounded';
-import { useSelector } from 'react-redux';
+import React from "react";
+import PlayArrow from "@material-ui/icons/PlayArrow";
+import Pause from "@material-ui/icons/Pause";
+import { useSelector } from "react-redux";
+import CustomButton from "../CustomButton";
 
 function PlayButton(props) {
-  const { resume, pause, className } = props;
+  const { resume, pause } = props;
   const paused = useSelector((state) => state.playbackStatus.paused);
 
   if (paused) {
-    return <PlayArrowRounded className={className} onClick={() => resume()} />
+    return (
+      <CustomButton onClick={() => resume()}>
+        <PlayArrow />
+      </CustomButton>
+    );
   }
-  return <PauseRounded className={className} onClick={() => pause()} />
+  return (
+    <CustomButton onClick={() => pause()}>
+      <Pause />
+    </CustomButton>
+  );
 }
 
 export default PlayButton;

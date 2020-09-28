@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Paper, List, ListItem } from "@material-ui/core";
 import DevicesIcon from "@material-ui/icons/Devices";
@@ -22,9 +22,6 @@ const deviceIcon = (deviceType) => {
 function Devices() {
   const dispatch = useDispatch();
   const devices = useSelector((state) => state.devices.items);
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const handleClick = () => dispatch(fetchDevices());
 
   return (

@@ -1,10 +1,13 @@
-import React from 'react';
-import SkipPreviousRoundedIcon from '@material-ui/icons/SkipPreviousRounded';
+import React from "react";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import CustomButton from "../CustomButton";
 
 function NextButton(props) {
-  const { onClick, className } = props;
+  const { onClick } = props;
   return (
-    <SkipPreviousRoundedIcon className={className} onClick={onClick}/>
+    <CustomButton onClick={onClick}>
+      <SkipPreviousIcon />
+    </CustomButton>
   );
 }
 

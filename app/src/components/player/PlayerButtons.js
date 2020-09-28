@@ -1,45 +1,31 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/styles';
-import lime from '@material-ui/core/colors/lime';
-import PreviousButton from './PreviousButton';
-import PlayButton from './PlayButton';
-import NextButton from './NextButton';
-
-const buttonStyle = {
-  '&:hover': {
-    color: lime[500],
-    cursor: 'pointer',
-  },
-  '&:active': {
-    color: lime[800],
-    cursor: 'pointer',
-  },
-};
+import React from "react";
+import { makeStyles } from "@material-ui/styles";
+import PreviousButton from "./PreviousButton";
+import PlayButton from "./PlayButton";
+import NextButton from "./NextButton";
 
 const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
-  buttonSmall: {
-    ...buttonStyle,
-    fontSize: '30px',
+  innerPadding: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
   },
-  buttonLarge: {
-     ...buttonStyle,
-    // fontSize: '30px',
-  }
-})
+});
 
 function PlayerButtons(props) {
   const { previousTrack, resume, pause, nextTrack } = props;
   const classes = useStyles();
-  return(
-    <div className={classes.root}>
-      <PreviousButton onClick={previousTrack} className={classes.buttonSmall} />
-      <PlayButton resume={resume} pause={pause} className={classes.buttonLarge} />
-      <NextButton onClick={nextTrack} className={classes.buttonSmall} />
+  return (
+    <div className={classes.container}>
+      <PreviousButton onClick={previousTrack} />
+      <div className={classes.innerPadding}>
+        <PlayButton resume={resume} pause={pause} />
+      </div>
+      <NextButton onClick={nextTrack} />
     </div>
   );
 }
