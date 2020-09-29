@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MusicSearch from "../musicSearch/MusicSearch";
-import LyricsSearch from "../lyrics/LyricsSearch";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
@@ -50,10 +49,6 @@ function TopPanel() {
               Featured
             </Button>
           </ButtonGroup>
-        </Grid>
-
-        <Grid item xs={3}>
-          <LyricsSearch />
         </Grid>
       </Grid>
     </div>
