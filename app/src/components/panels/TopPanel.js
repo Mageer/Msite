@@ -9,12 +9,12 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "5px",
-    background: "#3A3A3A",
+    background: theme.palette.background.levelFive,
   },
-});
+}));
 
 function TopPanel() {
   const classes = useStyles();

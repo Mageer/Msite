@@ -6,14 +6,14 @@ import PlaylistTrackList from "../playlists/PlaylistTrackList";
 import MyPlaylists from "../playlists/MyPlaylists";
 import "../../scrollbar.css";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     overflowY: "auto",
     height: "100%",
-    backgroundColor: "#1C1C1C",
+    background: theme.palette.background.levelOne,
     color: "#F7F7F7",
   },
-});
+}));
 
 function MiddlePanel() {
   const classes = useStyles();

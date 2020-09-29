@@ -7,13 +7,13 @@ import CurrentPlayingTrackAlbumArt from "../tracks/CurrentPlayingTrackAlbumArt";
 import CurrentPlayingTrackInformation from "../tracks/CurrentPlayingTrackInformation";
 import "../../scrollbar.css";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     height: "100%",
     flexDirection: "column",
-    background: "#424242",
     padding: "10px",
+    background: theme.palette.background.levelThree,
   },
   trackAlbumArt: {
     lineHeight: "0",
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   space: {
     paddingTop: "10px",
   },
-});
+}));
 
 function LeftPanel() {
   const classes = useStyles();

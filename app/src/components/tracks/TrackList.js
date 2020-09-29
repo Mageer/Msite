@@ -2,13 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import blue from "@material-ui/core/colors/blue";
 import InfiniteScroll from "react-infinite-scroller";
 import TrackListItem from "../tracks/TrackListItem";
 import getTrackIdAndLinkedFromId from "../../lib/trackIdAndLinkedFromId";
 import "../../scrollbar.css";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
     overflow: "auto",
@@ -16,21 +15,23 @@ const useStyles = makeStyles({
   list: {
     color: "#D8D8D8",
     height: "100%",
+    paddingLeft: "10px",
   },
   item: {
     "&:hover": {
-      color: blue[500],
-    },
-    "&$selected": {
-      color: blue[500],
+      color: theme.palette.primary.hover,
+      background: theme.palette.background.levelZero,
     },
   },
-  selected: {},
+  selected: {
+    color: theme.palette.primary.selected,
+    backgroundColor: theme.palette.background.levelOne,
+  },
   loader: {
     textAlign: "center",
     padding: "5px",
   },
-});
+}));
 
 function TrackList(props) {
   const classes = useStyles();

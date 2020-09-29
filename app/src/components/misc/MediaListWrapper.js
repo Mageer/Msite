@@ -2,7 +2,7 @@ import React from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((props) => ({
+const useStyles = makeStyles((theme, props) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -11,7 +11,8 @@ const useStyles = makeStyles((props) => ({
   header: {
     textAlign: "center",
     padding: "10px",
-    background: (props) => props.headerColor || "black",
+    background: (props) =>
+      props.headerColor || theme.palette.background.levelTwo,
   },
   list: {
     height: "100%",

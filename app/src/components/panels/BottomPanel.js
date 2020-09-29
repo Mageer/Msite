@@ -5,10 +5,10 @@ import PlayerControls from "../player/PlayerControls";
 import VolumeControl from "../player/VolumeControl";
 import Devices from "../misc/Devices";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "5px",
-    background: "#3A3A3A",
+    background: theme.palette.background.LevelFive,
   },
   volumeAndDevicesContainer: {
     display: "flex",
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     width: "100px",
     paddingRight: "20px",
   },
-});
+}));
 
 function BottomPanel(props) {
   const { player } = props;
