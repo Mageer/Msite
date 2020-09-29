@@ -1,6 +1,6 @@
 import React from "react";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
-import CustomButton from "../CustomButton";
+import CustomButton from "../misc/CustomButton";
 
 function NextButton(props) {
   const { onClick } = props;

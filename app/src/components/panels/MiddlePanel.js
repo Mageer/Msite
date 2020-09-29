@@ -1,10 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
-import MusicSearchResult from "./musicSearch/MusicSearchResult";
-import PlaylistTrackList from "./playlists/PlaylistTrackList";
-import MyPlaylists from "./playlists/MyPlaylists";
-import "../scrollbar.css";
+import MusicSearchResult from "../musicSearch/MusicSearchResult";
+import PlaylistTrackList from "../playlists/PlaylistTrackList";
+import MyPlaylists from "../playlists/MyPlaylists";
+import "../../scrollbar.css";
 
 const useStyles = makeStyles({
   root: {

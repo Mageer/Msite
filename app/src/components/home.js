@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Navbar from "./Navbar";
-import LeftPanel from "./LeftPanel";
-import MiddlePanel from "./MiddlePanel";
-import RightPanel from "./RightPanel";
-import BottomPanel from "./BottomPanel";
-import LoadingScreen from "./LoadingScreen";
+import Navbar from "./panels/TopPanel";
+import LeftPanel from "./panels/LeftPanel";
+import MiddlePanel from "./panels/MiddlePanel";
+import RightPanel from "./panels/RightPanel";
+import BottomPanel from "./panels/BottomPanel";
+import LoadingScreen from "./misc/LoadingScreen";
 import useNewAccessToken from "./auth/useNewAccessToken";
 import useSpotifyPlayer from "./player/useSpotifyPlayer";
 

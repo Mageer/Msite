@@ -5,7 +5,6 @@ import Home from "./Home";
 import LoginSpotify from "./auth/LoginSpotify";
 import SpotifyCallback from "./auth/SpotifyCallback";
 import PageNotFound from "./PageNotFound";
-import LoadingScreen from "./LoadingScreen";
 
 function App() {
   return (
@@ -18,10 +17,6 @@ function App() {
 
           <Route path="/spotify-callback">
             <SpotifyCallback />
-          </Route>
-
-          <Route path="/loading-screen">
-            <LoadingScreen />
           </Route>
 
           <Route exact path="/login">

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Paper, Card, CardMedia } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { fetchUserPlaylists } from "../actions/userPlaylists";
-import CurrentPlayingTrackAlbumArt from "./tracks/CurrentPlayingTrackAlbumArt";
-import CurrentPlayingTrackInformation from "./tracks/CurrentPlayingTrackInformation";
-import "../scrollbar.css";
+import { fetchUserPlaylists } from "../../actions/userPlaylists";
+import CurrentPlayingTrackAlbumArt from "../tracks/CurrentPlayingTrackAlbumArt";
+import CurrentPlayingTrackInformation from "../tracks/CurrentPlayingTrackInformation";
+import "../../scrollbar.css";
 
 const useStyles = makeStyles({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     padding: "10px",
   },
   trackAlbumArt: {
-    lineHeight: '0',
+    lineHeight: "0",
   },
   trackInformation: {
     flex: "1",

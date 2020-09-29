@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import Lyrics from "./lyrics/Lyrics";
-import "../scrollbar.css";
+import Lyrics from "../lyrics/Lyrics";
+import "../../scrollbar.css";
 
 const useStyles = makeStyles({
   lyrics: {

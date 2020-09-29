@@ -3,7 +3,7 @@ import Slider from "@material-ui/core/Slider";
 import { makeStyles } from "@material-ui/styles";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
-import CustomButton from "../CustomButton";
+import CustomButton from "../misc/CustomButton";
 
 const useStyles = makeStyles({
   container: {

@@ -3,8 +3,8 @@ import { ButtonGroup, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import MusicSearch from "./musicSearch/MusicSearch";
-import LyricsSearch from "./lyrics/LyricsSearch";
+import MusicSearch from "../musicSearch/MusicSearch";
+import LyricsSearch from "../lyrics/LyricsSearch";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Navbar() {
+function TopPanel() {
   const classes = useStyles();
   const history = useHistory();
   const handleMyPlaylists = () => history.push({ pathname: "/my-playlists" });
@@ -60,4 +60,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default TopPanel;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import PlayerControls from "./player/PlayerControls";
-import VolumeControl from "./player/VolumeControl";
-import Devices from "./Devices";
+import PlayerControls from "../player/PlayerControls";
+import VolumeControl from "../player/VolumeControl";
+import Devices from "../misc/Devices";
 
 const useStyles = makeStyles({
   root: {
