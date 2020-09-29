@@ -24,8 +24,8 @@ function PlaylistItem(props) {
   const history = useHistory();
   const { playlist } = props;
 
-  const handleClick = (id) => {
-    const search = qs.stringify({ id });
+  const handleClick = () => {
+    const search = qs.stringify({ id: playlist.id });
     const pathname = "/playlist";
     history.push({ pathname, search });
   };
