@@ -12,18 +12,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100%",
     flexDirection: "column",
-    padding: "10px",
     background: theme.palette.background.levelThree,
   },
   trackAlbumArt: {
     lineHeight: "0",
   },
-  trackInformation: {
+  trackInformationContainer: {
     flex: "1",
     overflowY: "auto",
-  },
-  space: {
-    paddingTop: "10px",
+    padding: "10px",
   },
 }));
 
@@ -40,8 +37,7 @@ function LeftPanel() {
       <Paper elevation={3} square className={classes.trackAlbumArt}>
         <CurrentPlayingTrackAlbumArt />
       </Paper>
-      <div className={classes.space}></div>
-      <div className={classes.trackInformation} id="scrollbar">
+      <div className={classes.trackInformationContainer} id="scrollbar">
         <CurrentPlayingTrackInformation />
       </div>
     </Paper>
