@@ -21,7 +21,7 @@ function MiddlePanel() {
   return (
     <div className={classes.root}>
       <Route path={"/search"} component={() => <MusicSearchResult />} />
-      <Route path={"/my-playlists"} component={() => <MyPlaylists />} />
+      <Route path={"/home"} component={() => <MyPlaylists />} />
       <Route path={"/playlist"} component={() => <PlaylistTrackList />} />
     </div>
   );

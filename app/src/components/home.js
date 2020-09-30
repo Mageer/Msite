@@ -9,7 +9,6 @@ import MiddlePanel from "./panels/MiddlePanel";
 import RightPanel from "./panels/RightPanel";
 import BottomPanel from "./panels/BottomPanel";
 import LoadingScreen from "./misc/LoadingScreen";
-import useNewAccessToken from "./auth/useNewAccessToken";
 import useSpotifyPlayer from "./player/useSpotifyPlayer";
 
 const useStyles = makeStyles({
@@ -32,16 +31,14 @@ const useStyles = makeStyles({
 });
 
 function Home() {
+  const classes = useStyles();
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const loaded = useSelector((state) => state.initialLoad.loaded);
-  const classes = useStyles();
-  useNewAccessToken();
   const player = useSpotifyPlayer();
 
   if (!loggedIn) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
-
   if (!loaded) {
     return <LoadingScreen />;
   }

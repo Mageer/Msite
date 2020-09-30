@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Welcome from "./Welcome";
+import Login from "./Login";
 import Home from "./Home";
+import Welcome from "./Welcome";
 import LoginSpotify from "./auth/LoginSpotify";
 import SpotifyCallback from "./auth/SpotifyCallback";
 import PageNotFound from "./PageNotFound";
@@ -20,6 +21,10 @@ function App() {
           </Route>
 
           <Route exact path="/login">
+            <Login />
+          </Route>
+
+          <Route exact path="/">
             <Welcome />
           </Route>
 

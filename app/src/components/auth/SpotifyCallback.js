@@ -16,7 +16,7 @@ function SpotifyCallback() {
   }, [location, dispatch]);
 
   if (loggedIn) {
-    return <Redirect to="/my-playlists" />;
+    return <Redirect to="/home" />;
   }
 
   return <div>Logging in</div>;

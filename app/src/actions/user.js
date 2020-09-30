@@ -1,9 +1,9 @@
-export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
-export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
-export const REFRESH_USER_REQUEST = 'REFRESH_USER_REQUEST';
-export const REFRESH_USER_SUCCESS = 'REFRESH_USER_SUCCESS';
-export const REFRESH_USER_FAILURE = 'REFRESH_USER_FAILURE';
+export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
+export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
+export const LOGIN_USER_FAILURE = "LOGIN_USER_FAILURE";
+export const REFRESH_USER_REQUEST = "REFRESH_USER_REQUEST";
+export const REFRESH_USER_SUCCESS = "REFRESH_USER_SUCCESS";
+export const REFRESH_USER_FAILURE = "REFRESH_USER_FAILURE";
 
 const loginUserRequest = (username, password) => ({
   type: LOGIN_USER_REQUEST,
@@ -25,29 +25,29 @@ const loginUserFailure = (username, error) => ({
 
 const refreshUserRequest = () => ({
   type: REFRESH_USER_REQUEST,
-})
+});
 
-const refreshUserSuccess = (username, accessToken) => ({
+export const refreshUserSuccess = (username, accessToken) => ({
   type: REFRESH_USER_SUCCESS,
   username,
   accessToken,
-})
+});
 
 const refreshUserFailure = (error) => ({
   type: REFRESH_USER_FAILURE,
   error,
-})
-
+});
 
 export const loginUser = (username, password) => (dispatch) => {
   dispatch(loginUserRequest(username, password));
 
   const data = { username, password };
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      credentials: "include",
     },
     body: JSON.stringify(data),
   };
@@ -55,25 +55,35 @@ export const loginUser = (username, password) => (dispatch) => {
   return fetch(`${process.env.REACT_APP_API_URI}/user/login`, options)
     .then((res) => {
       if (!res.ok) {
-        throw new Error('Unauthorized');
+        throw new Error("Unauthorized");
       }
       return res.json();
     })
-    .then(({ accessToken }) => dispatch(loginUserSuccess(username, accessToken)))
+    .then(({ accessToken }) =>
+      dispatch(loginUserSuccess(username, accessToken))
+    )
     .catch((error) => dispatch(loginUserFailure(username, error.message)));
 };
 
-
 /* Username and refresh token should be in cookies */
-export const refreshUser = () => (dispatch) => {
+export const refreshUser = (callback) => (dispatch) => {
   dispatch(refreshUserRequest());
-  fetch(`${process.env.REACT_APP_API_URI}/user/new-access-token`, { method: 'POST' })
+  fetch(`${process.env.REACT_APP_API_URI}/user/new-access-token`, {
+    method: "POST",
+    credentials: "include",
+  })
     .then((res) => {
       if (!res.ok) {
-        throw new Error('Unauthorized');
+        console.log("wow");
+        throw new Error("Unauthorized");
       }
       return res.json();
     })
-    .then(({ username, accessToken }) => dispatch(refreshUserSuccess(username, accessToken)))
+    .then(({ username, accessToken }) => {
+      if (callback) {
+        callback(accessToken);
+      }
+      return dispatch(refreshUserSuccess(username, accessToken));
+    })
     .catch((error) => dispatch(refreshUserFailure(error.message)));
-}
+};
