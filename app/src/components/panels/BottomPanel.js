@@ -29,9 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function BottomPanel(props) {
   const { player } = props;
   const classes = useStyles();
-  console.log(player);
 
-  console.log("Bottom rendered");
   if (!player) {
     return <div></div>;
   }
