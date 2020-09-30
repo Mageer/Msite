@@ -27,10 +27,6 @@ function PlaylistsList(props) {
   const classes = useStyles();
   const { loadMore, isExhausted, isFetching, children: playlists } = props;
 
-  const playlistsForDisplay = playlists.map((playlist) => (
-    <PlaylistItem playlist={playlist} />
-  ));
-
   return (
     <div className={classes.root} id="scrollbar">
       <InfiniteScroll
@@ -40,8 +36,10 @@ function PlaylistsList(props) {
         useWindow={false}
       >
         <div className={classes.playlistsContainer}>
-          {playlistsForDisplay.map((playlist) => (
-            <div className={classes.playlistItem}>{playlist}</div>
+          {playlists.map((playlist) => (
+            <div className={classes.playlistItem} key={playlist.id}>
+              <PlaylistItem playlist={playlist} />
+            </div>
           ))}
         </div>
       </InfiniteScroll>
