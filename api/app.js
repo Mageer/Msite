@@ -23,7 +23,7 @@ app.use(
 app.use("/lyrics", lyrics);
 app.use("/spotify", spotify);
 app.use("/user", user);
-app.use("/login", loginWithSpotify);
+app.use("/login-with-spotify", loginWithSpotify);
 
 app.get("*", (req, res) => {
   res.status(404).send("Error 404!");
