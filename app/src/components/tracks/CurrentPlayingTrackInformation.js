@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 function CurrentPlayingTrackInformation() {
-  const track = useSelector((state) => state.playbackStatus.currentTrack);
+  const track = useSelector((state) => state.playback.currentTrack);
   const classes = useStyles();
 
   if (!track) {
@@ -31,27 +31,27 @@ function CurrentPlayingTrackInformation() {
   const album = track.album.name;
   return (
     <div>
-      {description('Name')}
+      {description("Name")}
       <Typography variant="h6" className={classes.information}>
         {name}
       </Typography>
       <br />
-      {description('Artists')}
+      {description("Artists")}
       <Typography variant="body1" className={classes.information}>
         {artists}
       </Typography>
       <br />
-      {description('Album')}
+      {description("Album")}
       <Typography variant="body1" className={classes.information}>
         {album}
       </Typography>
       <br />
-      {description('Year')}
+      {description("Year")}
       <Typography variant="body1" className={classes.information}>
         Coming soon...
       </Typography>
       <br />
-      {description('Popularity')}
+      {description("Popularity")}
       <Typography variant="body1" className={classes.information}>
         Coming soon...
       </Typography>

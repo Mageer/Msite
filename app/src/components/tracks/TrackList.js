@@ -44,9 +44,7 @@ function TrackList(props) {
     children: items,
   } = props;
 
-  const currentTrack = useSelector(
-    (state) => state.playbackStatus.currentTrack
-  );
+  const currentTrack = useSelector((state) => state.playback.currentTrack);
   const {
     currentTrackId,
     currentTrackLinkedFromId,

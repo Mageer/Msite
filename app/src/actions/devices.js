@@ -1,5 +1,4 @@
-import { transferPlayback } from "./playbackStatus";
-import { initialLoadDone } from "./initialLoad";
+import apiCall from "../lib/apiCall";
 
 export const DEVICES_REQUEST = "DEVICES_REQUEST";
 export const DEVICES_SUCCESS = "DEVICES_SUCCESS";
@@ -17,48 +16,13 @@ const devicesFailure = (error) => ({
   error,
 });
 
-export const fetchDevices = () => (dispatch, getState) => {
-  dispatch(devicesRequest());
-  const { accessToken } = getState().user;
-  const bearer = `Bearer ${accessToken}`;
-  const options = {
+export const fetchDevices = () => (dispatch, getState) =>
+  apiCall({
+    request: devicesRequest,
+    success: (devices) => devicesSuccess(devices),
+    failure: (error) => devicesFailure(error),
     method: "GET",
-    headers: {
-      Authorization: bearer,
-    },
-  };
-  return fetch(`${process.env.REACT_APP_API_URI}/spotify/devices`, options)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Unable to get devices");
-      }
-      return res.json();
-    })
-    .then((devices) => dispatch(devicesSuccess(devices)))
-    .catch((err) => dispatch(devicesFailure(err)));
-};
-
-export const transferPlaybackOnDeviceLoad = (
-  myDeviceId,
-  maxTries = 10,
-  intervalLength = 500
-) => (dispatch, getState) => {
-  let tries = 0;
-  const intervalId = setInterval(() => {
-    let devices = getState().devices.items;
-    let isDeviceLoaded = devices.some((device) => device.id === myDeviceId);
-    if (isDeviceLoaded) {
-      dispatch(transferPlayback(myDeviceId)).then(() =>
-        dispatch(initialLoadDone())
-      );
-
-      return clearInterval(intervalId);
-    }
-    if (tries < maxTries) {
-      tries++;
-      dispatch(fetchDevices());
-    } else {
-      clearInterval(intervalId);
-    }
-  }, intervalLength);
-};
+    path: `/spotify/devices`,
+    dispatch,
+    getState,
+  });

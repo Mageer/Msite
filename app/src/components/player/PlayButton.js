@@ -6,7 +6,7 @@ import CustomButton from "../misc/CustomButton";
 
 function PlayButton(props) {
   const { resume, pause } = props;
-  const paused = useSelector((state) => state.playbackStatus.paused);
+  const paused = useSelector((state) => state.playback.paused);
 
   if (paused) {
     return (

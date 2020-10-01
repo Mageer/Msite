@@ -22,7 +22,7 @@ const failureSearchTracks = (query, error) => ({
 export const fetchMoreTracks = (query) => (dispatch, getState) => {
   const item = getState().search.items[query];
   const offset = item ? item.tracks.length : 0;
-  apiCall({
+  return apiCall({
     request: () => requestSearchTracks(query),
     success: (tracks) => successSearchTracks(query, tracks),
     failure: (error) => failureSearchTracks(query, error),

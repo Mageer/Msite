@@ -37,6 +37,9 @@ function Home() {
   const player = useSpotifyPlayer();
 
   if (!loggedIn) {
+    if (player) {
+      player.disconnect();
+    }
     return <Redirect to="/" />;
   }
   if (!loaded) {

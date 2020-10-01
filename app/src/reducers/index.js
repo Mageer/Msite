@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import lyrics from "./lyrics";
 import user from "./user";
-import playbackStatus from "./playbackStatus";
+import playback from "./playback";
 import userPlaylists from "./userPlaylists";
 import playlists from "./playlists";
 import search from "./search";
@@ -10,7 +10,7 @@ import initialLoad from "./initialLoad";
 
 const rootReducer = combineReducers({
   user,
-  playbackStatus,
+  playback,
   lyrics,
   userPlaylists,
   playlists,

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { playbackStatusUpdate } from "../../actions/playbackStatus";
-import { transferPlaybackOnDeviceLoad } from "../../actions/devices";
+import {
+  transferPlaybackOnDeviceLoad,
+  playbackUpdate,
+} from "../../actions/playback";
 import { setCurrentLyricsId } from "../../actions/lyrics";
 import { refreshUser } from "../../actions/user";
 import trackToLyricsId from "../../lib/trackToLyricsId";
@@ -38,7 +40,7 @@ function initPlayer(dispatch) {
       } = state;
       const lyricsId = trackToLyricsId(current_track);
       dispatch(setCurrentLyricsId(lyricsId));
-      dispatch(playbackStatusUpdate(current_track, duration, position, paused));
+      dispatch(playbackUpdate(current_track, duration, position, paused));
     }
   });
   player.on("initialization_error", ({ message }) => {

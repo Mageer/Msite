@@ -22,7 +22,7 @@ const failurePlaylistTracks = (id, error) => ({
 export const fetchMoreTracks = (id) => (dispatch, getState) => {
   const item = getState().playlists.items[id];
   const offset = item ? item.tracks.length : 0;
-  apiCall({
+  return apiCall({
     request: () => requestPlaylistTracks(id),
     success: (tracks) => successPlaylistTracks(id, tracks),
     failure: (error) => failurePlaylistTracks(id, error),

@@ -36,10 +36,7 @@ const msToTimeStamp = (time) => {
 function SeekBar(props) {
   const classes = useStyles();
   const { getPosition, seek } = props;
-  const { duration } = useSelector(
-    (state) => state.playbackStatus,
-    shallowEqual
-  );
+  const { duration } = useSelector((state) => state.playback, shallowEqual);
   const updateRate = 100;
   const maxVal = ~~(duration / updateRate); // Force int
   const [prog, setProg] = useState(0);

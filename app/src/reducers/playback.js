@@ -1,10 +1,10 @@
 import {
-    PLAYBACK_STATUS_UPDATE, 
-    TRANSFER_PLAYBACK_REQUEST,
-    TRANSFER_PLAYBACK_SUCCESS,
-    TRANSFER_PLAYBACK_FAILURE,
-} from '../actions/playbackStatus';
-  
+  PLAYBACK_UPDATE,
+  TRANSFER_PLAYBACK_REQUEST,
+  TRANSFER_PLAYBACK_SUCCESS,
+  TRANSFER_PLAYBACK_FAILURE,
+} from "../actions/playback";
+
 const initialPlaybackStatus = {
   currentTrack: null,
   duration: 0,
@@ -13,10 +13,10 @@ const initialPlaybackStatus = {
   deviceId: null,
   error: null,
 };
-  
-function playbackStatus(state = initialPlaybackStatus, action) {
+
+function playback(state = initialPlaybackStatus, action) {
   switch (action.type) {
-    case PLAYBACK_STATUS_UPDATE:
+    case PLAYBACK_UPDATE:
       return {
         ...state,
         currentTrack: action.currentTrack,
@@ -46,6 +46,5 @@ function playbackStatus(state = initialPlaybackStatus, action) {
       return state;
   }
 }
-  
-  export default playbackStatus;
-  
+
+export default playback;

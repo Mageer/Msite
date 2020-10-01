@@ -7,7 +7,7 @@ import ComputerIcon from "@material-ui/icons/Computer";
 import DeviceUnknownIcon from "@material-ui/icons/DeviceUnknown";
 import Popup from "reactjs-popup";
 import { fetchDevices } from "../../actions/devices";
-import { transferPlayback } from "../../actions/playbackStatus";
+import { transferPlayback } from "../../actions/playback";
 
 const deviceIcon = (deviceType) => {
   if (deviceType === "Smartphone") {

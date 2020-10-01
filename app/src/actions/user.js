@@ -75,7 +75,7 @@ export const loginUser = (username, password) => (dispatch) => {
     .catch((error) => dispatch(loginUserFailure(username, error.message)));
 };
 
-export const logoutUser = () => (dispatch, getState) => {
+export const logoutUser = () => (dispatch, getState) =>
   apiCall({
     request: logoutUserRequest,
     success: logoutUserSuccess,
@@ -86,7 +86,6 @@ export const logoutUser = () => (dispatch, getState) => {
     dispatch,
     getState,
   });
-};
 
 /* Username and refresh token should be in cookies */
 export const refreshUser = (callback) => (dispatch) => {
