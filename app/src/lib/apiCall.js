@@ -3,6 +3,7 @@ function apiCall({
   success,
   failure,
   method,
+  credentials = "omit",
   path,
   dispatch,
   getState,
@@ -12,6 +13,7 @@ function apiCall({
   const bearer = `Bearer ${accessToken}`;
   const options = {
     method,
+    credentials,
     headers: {
       Authorization: bearer,
     },
@@ -24,7 +26,10 @@ function apiCall({
       return res.json();
     })
     .then((data) => dispatch(success(data)))
-    .catch((error) => dispatch(failure(error)));
+    .catch((error) => {
+      console.log(error);
+      dispatch(failure(error));
+    });
 }
 
 export default apiCall;

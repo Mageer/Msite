@@ -2,14 +2,14 @@ const express = require("express");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const getUser = require("../middleware/get_user");
-const setUserCookies = require("../lib/set_user_cookies");
+const userCookies = require("../lib/user-cookies");
 
 const router = new express.Router();
 
 router.post("/register", async (req, res) => {
   try {
     const user = new User(req.body);
-    await setUserCookies(user, res);
+    await userCookies.set(user, res);
     const access_token = await user.generateAccessToken();
     res.send({ access_token });
   } catch (err) {
@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
       req.body.username,
       req.body.password
     );
-    await setUserCookies(user, res);
+    await userCookies.set(user, res);
     const accessToken = await user.generateAccessToken();
     res.send({ accessToken });
   } catch (err) {
@@ -33,13 +33,13 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", auth, getUser, async (req, res) => {
   const user = req.user;
-
   try {
     user.refresh_token = undefined;
     await user.save();
-    res.send();
+    userCookies.clear(res);
+    res.send({});
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(400).send({ error: err.message });
   }
 });
 
@@ -50,13 +50,11 @@ router.post("/new-access-token", async (req, res) => {
   try {
     const refresh_token = req.cookies.refresh_token;
     const username = req.cookies.username;
-    console.log(refresh_token, username);
 
     const user = await User.findByUsernameAndRefreshToken(
       username,
       refresh_token
     );
-
     const accessToken = await user.generateAccessToken();
     res.send({ username, accessToken });
   } catch (err) {
