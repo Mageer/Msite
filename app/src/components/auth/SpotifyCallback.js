@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useLocation, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
+import SmallLoadingScreen from "../misc/SmallLoadingScreen";
 
 function SpotifyCallback() {
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ function SpotifyCallback() {
   useEffect(() => {
     const options = { method: "POST", credentials: "include" };
     const url = `${process.env.REACT_APP_API_URI}/login-with-spotify/callback?code=${code}`;
-    fetch(url, options).then((res) => {
+    fetch(url, options).then(() => {
       history.replace("/");
     });
-  }, [dispatch]);
+  }, [code, dispatch]);
 
-  return <div>Logging in</div>;
+  return <SmallLoadingScreen />;
 }
 
 export default SpotifyCallback;
