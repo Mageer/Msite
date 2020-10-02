@@ -2,6 +2,13 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const User = require("../models/user");
 const userCookies = require("../lib/user-cookies");
 
+/**
+ *
+ *  CONTROLLER NEEDS SERIOUS REFACTOR
+ *  Several methods should be in the model
+ *
+ */
+
 exports.login = async (req, res) => {
   const spotifyApi = req.spotifyApi;
   try {
@@ -58,14 +65,8 @@ exports.callback = async (req, res) => {
     );
     const username = await generateUsername(spotifyApi);
     const user = await getOrCreateUser(username, spotify_refresh_token);
-
     await userCookies.set(user, res);
-    const userAccessToken = await user.generateAccessToken();
-    res.redirect(
-      `${process.env.CLIENT_BASE_URL}/spotify-callback?username=${encodeURI(
-        user.username
-      )}&accessToken=${encodeURI(userAccessToken)}`
-    );
+    res.send({});
   } catch (err) {
     res.status(400).send({ error: err.message });
   }

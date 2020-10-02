@@ -16,7 +16,7 @@ function App() {
             <LoginSpotify />
           </Route>
 
-          <Route path="/spotify-callback">
+          <Route path="/login-with-spotify/callback">
             <SpotifyCallback />
           </Route>
 

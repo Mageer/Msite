@@ -9,7 +9,7 @@ const spotifyController = require("../controllers/spotifyController");
 router.use(auth);
 router.use(
   getSpotifyApi({
-    redirectUri: `${process.env.SERVER_BASE_URL}/spotify/callback/`,
+    redirectUri: `${process.env.CLIENT_BASE_URL}/login-with-spotify/callback/`,
   })
 );
 
